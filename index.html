@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>고대 서아시아와 지중해(Animus 3.0)</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "animus-dark": "#0a0a12",
+                        "animus-panel": "#13131f",
+                        "animus-void": "#0b111e",
+                        "animus-white": "#ffffff",
+                        "animus-white-glow": "rgba(255, 255, 255, 0.8)",
+                        "animus-dim": "rgba(255, 255, 255, 0.4)",
+                        "animus-text-light": "#e0e6ed",
+                        "animus-text-dim": "#8a9bb0",
+                        "animus-accent": "#2a2a35",
+                        "animus-ai": "rgb(var(--theme-rgb) / <alpha-value>)",
+                    },
+                    fontFamily: {
+                        tech: ["Rajdhani", "sans-serif"],
+                        mono: ["Share Tech Mono", "monospace"],
+                        kr: ["Noto Sans KR", "sans-serif"],
+                    },
+                    backgroundImage: {
+                        'void-pattern': "radial-gradient(circle at 50% 50%, #151e2e 0%, #0b111e 100%)",
+                    },
+                    boxShadow: {
+                        'neon-glow': '0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2)',
+                        'panel-glow': 'inset 0 0 20px rgba(212, 175, 55, 0.05)',
+                        'shard-shadow': '0 10px 30px -10px rgba(0, 0, 0, 0.8)',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'scan': 'scan 3s linear infinite',
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        :root {
+            --theme-rgb: 212 175 55; /* Classic Gold */
+        }
+        body.sync-stable {
+            --theme-rgb: 16 185 129; /* Emerald Green */
+        }
+        
+        body { background-color: #0b111e; color: #e0e6ed; transition: background-color 0.8s ease, --theme-rgb 0.5s ease; }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .glass-panel { background: rgba(30, 30, 36, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .shard { clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
+        
+        .odyssey-panel {
+            background: rgba(11, 17, 30, 0.35);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgb(var(--theme-rgb) / 0.4); 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+        }
+
+        .text-glow { text-shadow: 0 0 8px rgb(var(--theme-rgb) / 0.7); }
+        .gold-glow { text-shadow: 0 0 12px rgb(var(--theme-rgb) / 0.5); }
+        
+        /* 테마 색상 전환을 위한 트랜지션 효과 */
+        .text-animus-ai, .border-animus-ai, .bg-animus-ai, .gold-glow, .text-glow, .odyssey-panel, svg {
+            transition: color 0.8s ease, border-color 0.8s ease, background-color 0.8s ease, text-shadow 0.8s ease, box-shadow 0.8s ease, filter 0.8s ease;
+        }
+        
+        .google-map-container { filter: grayscale(0.4) sepia(0.3) hue-rotate(180deg) brightness(0.85) contrast(1.15) saturate(1.2); opacity: 0.8; transition: all 0.5s ease; }
+        .sync-stable .google-map-container { filter: grayscale(0.2) sepia(0.2) hue-rotate(180deg) brightness(0.95) contrast(1.15) saturate(1.3); }
+        .google-map-container:hover { opacity: 1; filter: grayscale(0) sepia(0) hue-rotate(180deg) brightness(1.0) contrast(1.1) saturate(1.3); }
+        
+        .source-box { border: 1px solid rgba(212,175,55,0.3); padding: 1.5rem; background: rgba(11, 17, 30, 0.8); border-radius: 4px; }
+        #detail-image { background-size: cover; background-position: center; }
+        
+        #view-timeline { overflow-x: auto; scroll-behavior: smooth; }
+        .timeline-node { width: 16px; height: 16px; border-radius: 50%; background: #0b111e; border: 3px solid rgb(var(--theme-rgb)); box-shadow: 0 0 10px rgb(var(--theme-rgb) / 0.8); position: relative; z-index: 30; flex-shrink: 0; transition: all 0.3s ease; }
+
+        /* 다이아몬드 & 곡선 기하학 패턴 (전체 배경용 은은한 버전) */
+        .animus-bg-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 0 L120 60 L60 120 L0 60 Z' fill='none' stroke='%23D4AF37' stroke-opacity='0.35' stroke-width='1'/%3E%3Cpath d='M60 30 L90 60 L60 90 L30 60 Z' fill='none' stroke='%23D4AF37' stroke-opacity='0.2' stroke-width='1'/%3E%3Ccircle cx='0' cy='0' r='60' fill='none' stroke='%23D4AF37' stroke-opacity='0.25' stroke-width='1'/%3E%3Ccircle cx='120' cy='0' r='60' fill='none' stroke='%23D4AF37' stroke-opacity='0.25' stroke-width='1'/%3E%3Ccircle cx='0' cy='120' r='60' fill='none' stroke='%23D4AF37' stroke-opacity='0.25' stroke-width='1'/%3E%3Ccircle cx='120' cy='120' r='60' fill='none' stroke='%23D4AF37' stroke-opacity='0.25' stroke-width='1'/%3E%3C/svg%3E");
+            background-size: 120px 120px;
+            background-position: center center;
+        }
+
+        /* Archival Details 전용 진한 패턴 */
+        .archival-pattern-overlay {
+            position: relative;
+            overflow: hidden;
+        }
+        .archival-pattern-overlay::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(11, 17, 30, 0) 10%, rgba(5, 7, 10, 0.95) 100%),
+                url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 0 L120 60 L60 120 L0 60 Z' fill='none' stroke='%23D4AF37' stroke-opacity='0.25' stroke-width='1'/%3E%3Cpath d='M60 30 L90 60 L60 90 L30 60 Z' fill='none' stroke='%23D4AF37' stroke-opacity='0.15' stroke-width='1'/%3E%3Ccircle cx='0' cy='0' r='60' fill='none' stroke='%23D4AF37' stroke-opacity='0.2' stroke-width='1'/%3E%3Ccircle cx='120' cy='0' r='60' fill='none' stroke='%23D4AF37' stroke-opacity='0.2' stroke-width='1'/%3E%3Ccircle cx='0' cy='120' r='60' fill='none' stroke='%23D4AF37' stroke-opacity='0.2' stroke-width='1'/%3E%3Ccircle cx='120' cy='120' r='60' fill='none' stroke='%23D4AF37' stroke-opacity='0.2' stroke-width='1'/%3E%3C/svg%3E");
+            background-size: 100% 100%, 120px 120px;
+            background-position: center center, center center;
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: 0;
+            background-color: rgba(11, 17, 30, 0.65);
+        }
+        .archival-pattern-overlay > * {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* 동기화 완료 시 초록색 패턴으로 전환 */
+        body.sync-stable .animus-bg-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 0 L120 60 L60 120 L0 60 Z' fill='none' stroke='%2310B981' stroke-opacity='0.35' stroke-width='1'/%3E%3Cpath d='M60 30 L90 60 L60 90 L30 60 Z' fill='none' stroke='%2310B981' stroke-opacity='0.2' stroke-width='1'/%3E%3Ccircle cx='0' cy='0' r='60' fill='none' stroke='%2310B981' stroke-opacity='0.25' stroke-width='1'/%3E%3Ccircle cx='120' cy='0' r='60' fill='none' stroke='%2310B981' stroke-opacity='0.25' stroke-width='1'/%3E%3Ccircle cx='0' cy='120' r='60' fill='none' stroke='%2310B981' stroke-opacity='0.25' stroke-width='1'/%3E%3Ccircle cx='120' cy='120' r='60' fill='none' stroke='%2310B981' stroke-opacity='0.25' stroke-width='1'/%3E%3C/svg%3E");
+        }
+        body.sync-stable .archival-pattern-overlay::before {
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(11, 17, 30, 0) 10%, rgba(5, 7, 10, 0.95) 100%),
+                url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 0 L120 60 L60 120 L0 60 Z' fill='none' stroke='%2310B981' stroke-opacity='0.25' stroke-width='1'/%3E%3Cpath d='M60 30 L90 60 L60 90 L30 60 Z' fill='none' stroke='%2310B981' stroke-opacity='0.15' stroke-width='1'/%3E%3Ccircle cx='0' cy='0' r='60' fill='none' stroke='%2310B981' stroke-opacity='0.2' stroke-width='1'/%3E%3Ccircle cx='120' cy='0' r='60' fill='none' stroke='%2310B981' stroke-opacity='0.2' stroke-width='1'/%3E%3Ccircle cx='0' cy='120' r='60' fill='none' stroke='%2310B981' stroke-opacity='0.2' stroke-width='1'/%3E%3Ccircle cx='120' cy='120' r='60' fill='none' stroke='%2310B981' stroke-opacity='0.2' stroke-width='1'/%3E%3C/svg%3E");
+        }
+
+        .intense-glitch {
+            animation: sync-glitch-transition 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+        }
+        @keyframes sync-glitch-transition {
+            0% { transform: translate(0); filter: none; }
+            15% { transform: translate(-15px, 2px) scale(1.02); filter: grayscale(1) contrast(2); }
+            30% { transform: translate(15px, -2px) skewX(15deg); filter: invert(0.2); }
+            45% { transform: translate(-8px, -5px) skewX(-20deg); filter: hue-rotate(90deg); }
+            60% { transform: translate(20px, 0) scaleY(1.1); filter: contrast(3); }
+            75% { transform: translate(-15px, 4px) skewX(5deg); filter: invert(0.5); }
+            90% { transform: translate(5px, -2px); filter: sepia(1); }
+            100% { transform: translate(0); filter: none; }
+        }
+
+        #transition-overlay {
+            background-color: #0b111e;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+        #transition-overlay.show {
+            opacity: 1;
+        }
+
+        .screen-glitch::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px);
+            z-index: 101;
+            pointer-events: none;
+            opacity: 0;
+            animation: flash-glitch 5s infinite;
+        }
+        @keyframes flash-glitch {
+            0%, 9%, 11%, 100% { opacity: 0; clip-path: inset(0 0 0 0); }
+            10% { opacity: 0.8; clip-path: inset(10% 0 80% 0); transform: translateX(-1px); }
+        }
+
+        .glitch-flicker { animation: opacity-flicker 3s infinite; }
+        @keyframes opacity-flicker {
+            0%, 4%, 6%, 19%, 21%, 79%, 81%, 100% { opacity: 1; transform: translateX(0); }
+            5%, 20%, 80% { opacity: 0.8; transform: translateX(1px); }
+        }
+        .glitch-shift { position: relative; animation: rgb-shift 0.3s infinite alternate; }
+        @keyframes rgb-shift {
+            0% { text-shadow: 1px 0 0 rgba(255, 0, 0, 0.4), -1px 0 0 rgba(0, 255, 255, 0.4); }
+            100% { text-shadow: -1px 0 0 rgba(255, 0, 0, 0.4), 1px 0 0 rgba(0, 255, 255, 0.4); }
+        }
+        
+        .black-room-bg {
+            position: absolute; inset: 0;
+            background: radial-gradient(circle at 50% 50%, #2a2a32 0%, #111118 100%);
+            z-index: 1;
+        }
+        .black-room-ceiling {
+            position: absolute; top: 0; left: -50%; width: 200%; height: 50%;
+            background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 1.5px, transparent 1.5px), linear-gradient(0deg, rgba(0, 0, 0, 0.6) 1.5px, transparent 1.5px);
+            background-size: 80px 80px;
+            transform: perspective(600px) rotateX(-75deg); transform-origin: bottom center;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 90%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 90%);
+            animation: forward-grid 3s linear infinite; z-index: 2;
+        }
+        .black-room-floor {
+            position: absolute; bottom: 0; left: -50%; width: 200%; height: 50%;
+            background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 1.5px, transparent 1.5px), linear-gradient(0deg, rgba(0, 0, 0, 0.6) 1.5px, transparent 1.5px);
+            background-size: 80px 80px;
+            transform: perspective(600px) rotateX(75deg); transform-origin: top center;
+            -webkit-mask-image: linear-gradient(to top, transparent 0%, black 90%);
+            mask-image: linear-gradient(to top, transparent 0%, black 90%);
+            animation: forward-grid 3s linear infinite; z-index: 2;
+        }
+        @keyframes forward-grid {
+            0% { background-position: 0px 0px, 0px 0px; }
+            100% { background-position: 0px 0px, 0px 80px; }
+        }
+        
+        .map-marker {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: rgb(var(--theme-rgb));
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgb(var(--theme-rgb)), 0 0 20px rgb(var(--theme-rgb));
+            transform: translate(-50%, -50%);
+            animation: pulse-marker 2s infinite;
+        }
+        @keyframes pulse-marker {
+            0% { box-shadow: 0 0 0 0 rgb(var(--theme-rgb) / 0.7); }
+            70% { box-shadow: 0 0 0 15px rgb(var(--theme-rgb) / 0); }
+            100% { box-shadow: 0 0 0 0 rgb(var(--theme-rgb) / 0); }
+        }
+        
+        @keyframes float-anim {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        .animate-float-box {
+            animation: float-anim 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-animus-void text-animus-text-light font-kr overflow-hidden h-screen flex flex-col relative">
+<audio id="bgm-player" src="BGM2.mp3" loop></audio>
+
+<!-- 코드로 직접 그린 다이아몬드 & 곡선 애니머스 패턴 배경 (모든 탭 적용) -->
+<div class="fixed inset-0 z-0 pointer-events-none bg-[#0a0a12]">
+    <div class="absolute inset-0 animus-bg-pattern opacity-60"></div>
+    <div class="absolute inset-0 z-10" style="background: radial-gradient(circle at 50% 50%, transparent 20%, #05070a 90%);"></div>
+</div>
+
+<div id="transition-overlay" class="fixed inset-0 z-[150] pointer-events-none hidden"></div>
+
+<div id="intro-screen" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#1e1e24] transition-all duration-[1500ms] ease-in-out origin-center cursor-pointer screen-glitch" onclick="initAudioContext()">
+    <div class="black-room-bg pointer-events-none"></div>
+    <div class="black-room-ceiling pointer-events-none"></div>
+    <div class="black-room-floor pointer-events-none"></div>
+    <div id="intro-content" class="relative z-10 flex flex-col items-center text-center max-w-2xl px-6 pointer-events-none glitch-flicker">
+        <div class="size-24 bg-black/60 border border-white/20 flex items-center justify-center relative shadow-neon-glow mb-10 animate-float rounded-sm">
+            <svg viewBox="0 0 100 100" class="w-14 h-14 fill-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] glitch-shift">
+                <path d="M50 15 L10 85 L35 85 L50 55 L65 85 L90 85 Z" />
+            </svg>
+            <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-white"></div>
+            <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-white"></div>
+        </div>
+        <h1 class="text-7xl font-bold tracking-[0.3em] uppercase font-tech text-white mb-2 glitch-shift">Animus <span class="text-4xl opacity-50">3.0</span></h1>
+        <p id="system-status" class="text-red-500 font-mono tracking-[0.4em] text-sm mb-16 font-bold glitch-shift drop-shadow-[0_0_8px_rgba(255,0,0,0.8)]">SYSTEM UNSTABLE // UNSYNCHRONIZED</p>
+        <p id="click-to-start-text" class="text-white/50 text-xs font-tech tracking-widest uppercase mb-4 animate-pulse">화면을 클릭하여 신경망을 연결할 것</p>
+        <button id="btn-init-sync" onclick="event.stopPropagation(); startSyncSequence();" class="hidden relative group px-14 py-5 glass-panel border border-white/50 hover:border-white transition-all shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-neon-glow overflow-hidden cursor-pointer rounded-sm pointer-events-auto">
+            <div class="absolute inset-0 w-0 bg-white/20 transition-all duration-700 ease-out group-hover:w-full"></div>
+            <span class="relative flex items-center gap-4 text-white font-tech tracking-[0.2em] font-bold text-xl uppercase">
+                <span class="material-symbols-outlined text-white group-hover:animate-spin drop-shadow-[0_0_5px_rgba(255,255,255,0.8)]">settings_input_component</span>
+                동기화 시작 [ INITIATE SYNC ]
+            </span>
+        </button>
+        <div id="sync-progress-container" class="hidden w-full max-w-md mt-4 pointer-events-auto">
+            <div class="flex justify-between text-[11px] text-white font-mono mb-2 uppercase tracking-widest font-bold drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">
+                <span id="sync-status-text">STABILIZING NEURAL LINK...</span>
+                <span id="sync-percentage">0%</span>
+            </div>
+            <div class="w-full h-1.5 bg-white/20 rounded overflow-hidden relative shadow-inner">
+                <div id="sync-progress-bar" class="absolute top-0 left-0 h-full bg-white w-0 shadow-[0_0_10px_#ffffff] transition-all duration-[200ms] ease-linear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<header class="flex items-center justify-between odyssey-panel z-40 relative h-16 border-b border-animus-ai/30 px-6 flex-shrink-0">
+    <div class="flex items-center gap-4 group cursor-pointer" onclick="switchMainTab('database')">
+        <div class="size-10 text-animus-ai border border-animus-ai/50 flex items-center justify-center relative bg-[#0b111e]/80 shadow-[0_0_10px_rgb(var(--theme-rgb)/0.3)] rounded-sm">
+            <svg viewBox="0 0 100 100" class="w-6 h-6 fill-current drop-shadow-[0_0_5px_rgb(var(--theme-rgb)/0.5)]">
+                <path d="M50 15 L10 85 L35 85 L50 55 L65 85 L90 85 Z" />
+            </svg>
+            <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-animus-ai"></div>
+            <div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-animus-ai"></div>
+        </div>
+        <div class="flex flex-col">
+            <div class="flex items-center gap-3">
+                <h2 class="text-white text-2xl font-bold tracking-[0.15em] uppercase font-tech gold-glow">Animus <span class="text-animus-ai text-base align-top opacity-90 font-tech">3.0</span></h2>
+                <div id="sync-status-badge" class="hidden sm:flex items-center gap-1 bg-animus-ai/10 border border-animus-ai/40 px-2 py-0.5 rounded-sm">
+                    <span id="sync-status-icon" class="material-symbols-outlined text-[10px] text-animus-ai">warning</span>
+                    <span id="sync-status-label" class="text-[9px] text-animus-ai font-mono tracking-widest font-bold uppercase mt-0.5">Sync: Unstable</span>
+                </div>
+            </div>
+            <span class="text-[10px] text-animus-text-dim tracking-widest font-mono uppercase mt-0.5">Ancient History // Historical Database</span>
+        </div>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 h-full z-10">
+        <a id="nav-database" onclick="switchMainTab('database')" class="text-animus-text-dim hover:text-white transition-all text-sm font-semibold uppercase font-tech px-2 cursor-pointer h-full flex items-center border-b-2 border-transparent hover:border-animus-ai/50 duration-300">데이터베이스</a>
+        <a id="nav-sync" onclick="switchMainTab('sync')" class="text-animus-text-dim hover:text-white transition-all text-sm font-semibold uppercase font-tech px-2 cursor-pointer h-full flex items-center border-b-2 border-transparent hover:border-animus-ai/50 duration-300">동기화</a>
+        <a id="nav-timeline" onclick="switchMainTab('timeline')" class="text-animus-text-dim hover:text-white transition-all text-sm font-semibold uppercase font-tech px-2 cursor-pointer h-full flex items-center border-b-2 border-transparent hover:border-animus-ai/50 duration-300">연표</a>
+    </nav>
+    <div class="flex items-center gap-3 z-10">
+        <button id="btn-complete-sync" onclick="completeSync()" class="flex items-center gap-2 text-animus-ai hover:text-white px-4 py-2 border border-animus-ai/40 hover:border-animus-ai hover:bg-animus-ai/20 transition-all duration-300 font-tech uppercase tracking-wider text-xs font-bold rounded-sm shadow-[0_0_10px_rgb(var(--theme-rgb)/0.1)]">
+            <span class="material-symbols-outlined text-sm">task_alt</span>
+            <span>동기화 완료 (Complete)</span>
+        </button>
+        <button onclick="playUIBeep(); location.reload()" class="flex items-center gap-2 text-animus-text-dim hover:text-animus-ai px-4 py-2 border border-white/20 hover:border-animus-ai transition-all duration-300 font-tech uppercase tracking-wider text-xs font-bold rounded-sm">
+            <span class="material-symbols-outlined text-sm">refresh</span>
+            <span>Reboot</span>
+        </button>
+    </div>
+</header>
+
+<main class="flex-1 flex overflow-hidden relative">
+    <div id="view-database" class="flex-1 flex w-full h-full">
+        <aside class="w-72 odyssey-panel flex flex-col z-30 relative shadow-shard-shadow border-r border-animus-ai/30 flex-shrink-0 archival-pattern-overlay">
+            <div class="p-5 border-b border-animus-ai/20">
+                <h1 class="text-[12px] font-kr font-bold opacity-80 text-animus-ai mb-1 tracking-wide">II. 문명의 발생과 고대 세계의 형성<br/><span class="text-white font-bold font-kr text-lg tracking-widest gold-glow mt-1 block">02. 고대 서아시아와 지중해</span></h1>
+            </div>
+            <div id="civilization-list-container" class="flex-1 overflow-y-auto no-scrollbar p-4 space-y-3"></div>
+            <div class="p-4 border-t border-animus-ai/20 bg-[#0b111e]/40">
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-[#151e2e]/40 border border-animus-ai/20 p-2 text-center rounded-sm">
+                        <div class="text-[9px] text-animus-text-dim uppercase font-bold tracking-widest font-tech mb-1">Session</div>
+                        <div id="timer" class="text-animus-ai font-mono text-sm font-bold tracking-wider">00:00:00</div>
+                    </div>
+                    <div class="bg-[#151e2e]/40 border border-animus-ai/20 p-2 text-center rounded-sm">
+                        <div class="text-[9px] text-animus-text-dim uppercase font-bold tracking-widest font-tech mb-1">Integrity</div>
+                        <div class="text-animus-ai font-mono text-sm font-bold tracking-wider">99.1%</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <section class="flex-1 flex flex-col relative bg-transparent overflow-hidden z-10">
+            <div class="absolute top-0 left-0 right-0 z-20 p-4 flex justify-end items-start pointer-events-none">
+                <div class="pointer-events-auto odyssey-panel px-5 py-2 flex items-center gap-4 rounded-sm shadow-lg">
+                    <div class="flex items-center gap-3">
+                        <div class="w-[2px] h-4 bg-animus-ai shadow-[0_0_8px_rgb(var(--theme-rgb)/0.8)]"></div>
+                        <div id="breadcrumb" class="text-[11px] font-bold tracking-[0.15em] font-tech uppercase text-animus-text-light flex gap-2">
+                            <span class="text-animus-text-dim">WORLD</span> / <span>ANCIENT</span> / <span class="text-animus-ai gold-glow font-bold" id="active-region-name">PERSIA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="map-container" class="flex-1 relative w-full h-full bg-transparent flex items-center justify-center overflow-hidden">
+                <div id="google-map-wrapper" class="absolute inset-0 w-full h-full google-map-container">
+                    <iframe id="google-map-iframe" class="w-full h-full border-none" src="about:blank" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                </div>
+                
+                <div id="origin-markers" class="absolute inset-0 z-20 hidden pointer-events-none"></div>
+                
+                <div id="civilization-popup" class="absolute odyssey-panel p-0 z-30 animate-float rounded-md hidden w-72 left-[calc(50%+45px)] top-1/2 -translate-y-1/2 shadow-2xl border-animus-ai/50 overflow-hidden">
+                    <div class="p-5 bg-[#0b111e]/90 backdrop-blur-md">
+                        <h3 id="popup-title" class="text-animus-ai font-kr font-bold text-xl mb-2 gold-glow border-b border-animus-ai/30 pb-2">문명 탐색</h3>
+                        <p id="popup-desc" class="text-animus-text-light text-[12px] font-kr opacity-90 leading-relaxed break-keep mt-2">데이터 로딩 중...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <aside class="w-80 odyssey-panel border-l border-animus-ai/30 hidden md:flex flex-col z-30 shadow-[-10px_0_30px_rgba(0,0,0,0.6)] flex-shrink-0 p-5 archival-pattern-overlay">
+            <h3 class="text-sm font-bold text-animus-ai uppercase font-tech gold-glow tracking-widest pb-3 border-b border-animus-ai/30 mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-lg">account_balance</span> Archival Details
+            </h3>
+            <div id="detail-content" class="flex-1 overflow-y-auto no-scrollbar flex flex-col justify-between">
+                <div>
+                    <div class="relative w-full flex justify-center items-center border border-animus-ai/40 bg-[#0b111e] overflow-hidden rounded-sm shadow-md min-h-[250px]">
+                        <img id="detail-image" src="" class="w-auto h-auto max-w-full max-h-[400px] object-contain transition-transform duration-700" onerror="this.style.display='none'" onload="this.style.display='block'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0b111e] via-[#0b111e]/40 to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-4 left-4 border-l-2 border-animus-ai pl-2 z-10"><h2 id="detail-title" class="text-white font-bold text-xl font-kr gold-glow tracking-wide">데이터 단편</h2></div>
+                    </div>
+                    <div id="detail-sections" class="mt-5"></div>
+                </div>
+                <div class="mt-auto pt-8 flex justify-end">
+                    <button id="btn-run-sync" onclick="switchMainTab('sync')" class="px-5 py-2.5 bg-[#151e2e] text-animus-ai border border-animus-ai/50 font-bold uppercase tracking-widest font-tech hover:bg-animus-ai hover:text-[#0b111e] transition-all rounded-sm shadow-[0_0_10px_rgb(var(--theme-rgb)/0.2)] cursor-pointer text-xs flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">sync</span> 동기화 실행
+                    </button>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <div id="view-sync" style="display:none" class="flex-1 flex-col w-full h-full bg-transparent p-8 overflow-y-auto no-scrollbar relative">
+        <div id="sync-tabs-container" class="flex gap-2 border-b border-animus-ai/20 mb-8 flex-wrap z-10 relative"></div>
+        <div id="sync-dynamic-content" class="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10"></div>
+    </div>
+
+    <div id="view-timeline" style="display:none" class="flex-1 w-full h-full bg-transparent overflow-x-auto no-scrollbar relative">
+        <div id="timeline-wrapper" class="relative flex items-center h-full px-[10vw] min-w-max z-10">
+            <div class="absolute left-0 w-full top-1/2 h-[2px] z-10" style="background: rgb(var(--theme-rgb) / 0.6); box-shadow: 0 0 10px rgb(var(--theme-rgb) / 0.5); transform: translateY(-50%);"></div>
+            <div id="timeline-events-container" class="flex flex-row items-center gap-[60px] relative z-20 h-full"></div>
+        </div>
+    </div>
+    
+    <!-- 추가된 팝업 컨테이너 (Animus 3.0 디자인 적용) -->
+    <div id="origin-core-popup" class="fixed inset-0 z-[200] hidden items-center justify-center bg-[#0b111e]/80 backdrop-blur-sm" onclick="hideOriginPopup()">
+        <div id="origin-popup-panel" class="odyssey-panel p-10 max-w-2xl w-full rounded-md shadow-2xl relative border border-animus-ai/50 mx-4 flex flex-col md:flex-row gap-8 items-center transition-all duration-300" onclick="event.stopPropagation()">
+            <button class="absolute top-4 right-4 text-animus-text-dim hover:text-white transition-colors z-10" onclick="hideOriginPopup()">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <div class="flex-1 w-full">
+                <h3 class="text-xl font-bold text-animus-ai mb-6 flex items-center gap-2 gold-glow">
+                    <span class="material-symbols-outlined">info</span>
+                    핵심 데이터 복구
+                </h3>
+                <p id="origin-popup-text" class="text-animus-text-light leading-relaxed font-kr break-keep text-xl md:text-2xl font-medium">
+                </p>
+            </div>
+            <!-- 이미지가 1개일 때 -->
+            <div id="origin-popup-image-container" class="hidden relative w-full md:w-1/2 flex items-center justify-center border border-animus-ai/30 bg-[#0b111e]/90 overflow-hidden rounded-md group flex-shrink-0 min-h-[200px]">
+                <img id="origin-popup-image" src="" class="w-auto h-auto max-w-full max-h-[400px] object-contain transition-transform duration-700 opacity-90 group-hover:scale-105" onerror="this.style.display='none'">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0b111e]/80 via-transparent to-transparent pointer-events-none"></div>
+            </div>
+            <!-- 이미지가 2개일 때 (이중 레이아웃) -->
+            <div id="origin-popup-image-container-dual" class="hidden w-full md:w-1/2 flex-col gap-4 flex-shrink-0 h-[60vh]">
+                <div class="relative w-full flex items-center justify-center border border-animus-ai/30 bg-[#0b111e]/90 overflow-hidden rounded-md group flex-1">
+                    <img id="origin-popup-image-dual-1" src="" class="w-auto h-auto max-w-full max-h-[400px] object-contain transition-transform duration-700 opacity-90 group-hover:scale-105" onerror="this.style.display='none'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0b111e]/80 via-transparent to-transparent pointer-events-none"></div>
+                </div>
+                <div class="relative w-full flex items-center justify-center border border-animus-ai/30 bg-[#0b111e]/90 overflow-hidden rounded-md group flex-1">
+                    <img id="origin-popup-image-dual-2" src="" class="w-auto h-auto max-w-full max-h-[400px] object-contain transition-transform duration-700 opacity-90 group-hover:scale-105" onerror="this.style.display='none'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0b111e]/80 via-transparent to-transparent pointer-events-none"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 사료 탐구 이미지 팝업 (Animus 3.0 디자인 적용) -->
+    <div id="source-image-popup" class="fixed inset-0 z-[200] hidden items-center justify-center bg-[#0b111e]/80 backdrop-blur-sm" onclick="hideSourceImagePopup()">
+        <div class="odyssey-panel p-10 max-w-3xl w-full rounded-md shadow-2xl relative border border-animus-ai/50 mx-4" onclick="event.stopPropagation()">
+            <button class="absolute top-4 right-4 text-animus-text-dim hover:text-white transition-colors z-10" onclick="hideSourceImagePopup()">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <h3 class="text-xl font-bold text-animus-ai mb-6 flex items-center gap-2 gold-glow">
+                <span class="material-symbols-outlined">image</span>
+                시각 데이터 스캔
+            </h3>
+            <div class="relative w-full flex justify-center border border-animus-ai/30 bg-[#0b111e]/90 overflow-hidden rounded-md mb-5 group">
+                <img id="source-popup-img" src="" class="max-w-full max-h-[60vh] w-auto h-auto object-scale-down transition-transform duration-700 opacity-90 group-hover:scale-105" onerror="this.style.display='none'">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0b111e]/80 via-transparent to-transparent pointer-events-none"></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    let audioCtx, audioInitialized = false, currentCivId = 'persia', currentSyncCivId = 'persia';
+    let isTyping = false, typingTimeout;
+
+    const setSafeText = (id, t) => { const e = document.getElementById(id); if (e) e.innerText = t; };
+    const setSafeHTML = (id, h) => { const e = document.getElementById(id); if (e) e.innerHTML = h; };
+
+    const civImages = {
+        persia: '고대 서아시아 세계의 변천.jpg', // 여기에 로컬 이미지 파일명/경로를 넣으시면 됩니다.
+        greece: '파르테논 신전.jpg', // 여기에 로컬 이미지 파일명/경로를 넣으시면 됩니다.
+        hellenism: '알렉산드로스 대왕.jpg', // 여기에 로컬 이미지 파일명/경로를 넣으시면 됩니다.
+        rome: '포로 로마노.jpg', // 여기에 로컬 이미지 파일명/경로를 넣으시면 됩니다.
+        christianity: '카타콤.jpg' // 여기에 로컬 이미지 파일명/경로를 넣으시면 됩니다.
+    };
+
+    function initAudioContext() {
+        if (audioInitialized) {
+            // 한 번 더 클릭 시 타이핑을 즉시 건너뛰고 시작 버튼을 나타나게 함(스킵 기능 추가)
+            if (isTyping) {
+                isTyping = false;
+                clearTimeout(typingTimeout);
+                const terminal = document.getElementById('intro-terminal');
+                if (terminal) {
+                    terminal.innerText = "> INITIATING NEURAL RECONSTRUCTION...\n> TARGET: ANCIENT WESTERN ASIA & MEDITERRANEAN\n> EXTRACTING HISTORICAL ARCHIVES...\n> CONVERTING DATA TO NEURAL FORMAT...\n> CONFIGURING SYNCHRONIZATION PARAMETERS...\n> OUTPUT GENERATION READY.";
+                }
+                showFinalIntro();
+            }
+            return;
+        }
+        audioInitialized = true;
+        isTyping = true;
+        try {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+        } catch(e) {}
+        playUIBeep();
+
+        const introScreen = document.getElementById('intro-screen');
+        
+        // 클릭 문구 숨기기
+        document.getElementById('click-to-start-text').classList.add('hidden');
+
+        // 터미널 타이핑 효과용 div 생성
+        const terminal = document.createElement('div');
+        terminal.id = 'intro-terminal';
+        terminal.className = 'text-animus-ai font-mono text-[11px] sm:text-xs text-left w-full max-w-lg mt-4 mb-8 tracking-widest whitespace-pre-wrap drop-shadow-[0_0_5px_rgb(var(--theme-rgb)/0.8)] min-h-[120px] transition-opacity duration-300 z-20 relative';
+        
+        const introContent = document.getElementById('intro-content');
+        const btnInitSync = document.getElementById('btn-init-sync');
+        introContent.insertBefore(terminal, btnInitSync);
+
+        const lines = [
+            "> INITIATING NEURAL RECONSTRUCTION...",
+            "> TARGET: ANCIENT WESTERN ASIA & MEDITERRANEAN",
+            "> EXTRACTING HISTORICAL ARCHIVES...",
+            "> CONVERTING DATA TO NEURAL FORMAT...",
+            "> CONFIGURING SYNCHRONIZATION PARAMETERS...",
+            "> OUTPUT GENERATION READY."
+        ];
+
+        let lineIdx = 0;
+        let charIdx = 0;
+        let currentText = "";
+
+        function typeWriter() {
+            if (!isTyping) return; // 스킵된 경우 조기 종료
+            if (lineIdx < lines.length) {
+                if (charIdx < lines[lineIdx].length) {
+                    currentText += lines[lineIdx].charAt(charIdx);
+                    if (terminal) terminal.innerText = currentText + "█";
+                    charIdx++;
+                    typingTimeout = setTimeout(typeWriter, 5); 
+                } else {
+                    currentText += "\n";
+                    if (terminal) terminal.innerText = currentText + "█";
+                    lineIdx++;
+                    charIdx = 0;
+                    playUIBeep();
+                    typingTimeout = setTimeout(typeWriter, 80); 
+                }
+            } else {
+                if (terminal) terminal.innerText = currentText;
+                isTyping = false;
+                typingTimeout = setTimeout(showFinalIntro, 300); 
+            }
+        }
+        
+        typeWriter();
+
+        const bgm = document.getElementById('bgm-player');
+        if (bgm) {
+            bgm.volume = 0.4;
+            bgm.play().catch(e => console.warn("오디오 재생 실패:", e));
+        }
+    }
+
+    function showFinalIntro() {
+        const introScreen = document.getElementById('intro-screen');
+        if (!introScreen) return;
+        introScreen.classList.add('intense-glitch');
+        
+        const terminal = document.getElementById('intro-terminal');
+        if (terminal) terminal.style.opacity = '0';
+
+        setTimeout(() => {
+            const bgElements = introScreen.querySelectorAll('.black-room-bg, .black-room-ceiling, .black-room-floor');
+            bgElements.forEach(el => el.style.display = 'none');
+
+            introScreen.classList.remove('bg-[#1e1e24]');
+            introScreen.classList.add('bg-[#0a0a12]');
+
+            const patternDiv = document.createElement('div');
+            patternDiv.className = 'absolute inset-0 animus-bg-pattern opacity-60 z-[1] pointer-events-none';
+            introScreen.insertBefore(patternDiv, introScreen.firstChild);
+
+            const gradientDiv = document.createElement('div');
+            gradientDiv.className = 'absolute inset-0 z-[2] pointer-events-none';
+            gradientDiv.style.background = 'radial-gradient(circle at 50% 50%, transparent 20%, #05070a 90%)';
+            introScreen.insertBefore(gradientDiv, introScreen.firstChild);
+            
+            const btn = document.getElementById('btn-init-sync');
+            if (btn) btn.classList.remove('hidden');
+            
+            const spanText = btn ? btn.querySelector('span.relative') : null;
+            if (spanText) {
+                spanText.classList.remove('text-white');
+                spanText.classList.add('text-animus-ai', 'gold-glow');
+                const spanIcon = spanText.querySelector('.material-symbols-outlined');
+                if (spanIcon) {
+                    spanIcon.classList.remove('text-white', 'drop-shadow-[0_0_5px_rgba(255,255,255,0.8)]');
+                    spanIcon.classList.add('text-animus-ai', 'drop-shadow-[0_0_5px_rgb(var(--theme-rgb)/0.8)]');
+                }
+            }
+
+            if (terminal) terminal.classList.add('hidden');
+
+            introScreen.classList.remove('intense-glitch');
+        }, 500);
+    }
+
+    function playUIBeep() {
+        if (!audioCtx) return;
+        try {
+            const o = audioCtx.createOscillator(), g = audioCtx.createGain(), f = audioCtx.createBiquadFilter();
+            o.type = 'triangle'; 
+            o.frequency.setValueAtTime(120, audioCtx.currentTime); 
+            o.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.15);
+            f.type = 'lowpass'; 
+            f.frequency.setValueAtTime(300, audioCtx.currentTime);
+            g.gain.setValueAtTime(0, audioCtx.currentTime); 
+            g.gain.linearRampToValueAtTime(0.4, audioCtx.currentTime + 0.02);
+            g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+            o.connect(f); f.connect(g); g.connect(audioCtx.destination);
+            o.start(); o.stop(audioCtx.currentTime + 0.15);
+        } catch(e) {}
+    }
+
+    function completeSync() {
+        playUIBeep();
+        
+        const overlay = document.getElementById('transition-overlay');
+        overlay.style.backgroundColor = 'rgba(16, 185, 129, 0.15)';
+        overlay.classList.remove('hidden');
+        overlay.classList.add('flex', 'show');
+
+        setTimeout(() => {
+            document.body.classList.add('sync-stable');
+            document.getElementById('sync-status-icon').innerText = 'check_circle';
+            document.getElementById('sync-status-label').innerText = 'Sync: Stabilized';
+            
+            const badge = document.getElementById('sync-status-badge');
+            if(badge) {
+                badge.classList.remove('bg-animus-ai/10', 'border-animus-ai/40');
+                badge.classList.add('bg-emerald-500/20', 'border-emerald-500/50');
+            }
+            
+            const btn = document.getElementById('btn-complete-sync');
+            
+            if (btn) {
+                btn.classList.remove('text-animus-ai', 'border-animus-ai/40', 'hover:text-white', 'hover:border-animus-ai', 'hover:bg-animus-ai/20', 'shadow-[0_0_10px_rgb(var(--theme-rgb)/0.1)]');
+                btn.classList.add('text-emerald-400', 'border-emerald-500/50', 'bg-emerald-500/10', 'shadow-[0_0_15px_rgba(16,185,129,0.4)]');
+                btn.style.pointerEvents = 'none';
+            }
+            
+            setTimeout(() => {
+                if (btn) {
+                    btn.style.transition = 'opacity 0.6s ease';
+                    btn.style.opacity = '0';
+                    setTimeout(() => {
+                        btn.style.display = 'none';
+                    }, 600);
+                }
+            }, 1200);
+
+            overlay.classList.remove('show');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                overlay.classList.remove('flex');
+                overlay.style.backgroundColor = '#0b111e';
+            }, 600);
+        }, 150);
+    }
+
+    function playTransition(callback) {
+        playUIBeep();
+        const overlay = document.getElementById('transition-overlay');
+        overlay.classList.remove('hidden');
+        overlay.classList.add('flex');
+        
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                overlay.classList.add('show');
+                setTimeout(() => {
+                    if (callback) callback();
+                    setTimeout(() => {
+                        overlay.classList.remove('show');
+                        setTimeout(() => {
+                            overlay.classList.add('hidden');
+                            overlay.classList.remove('flex');
+                        }, 600); 
+                    }, 200); 
+                }, 600); 
+            });
+        });
+    }
+
+    function startSyncSequence() {
+        playUIBeep();
+        const btnSync = document.getElementById('btn-init-sync');
+        if (btnSync) btnSync.classList.add('hidden');
+        const progContainer = document.getElementById('sync-progress-container');
+        if (progContainer) progContainer.classList.remove('hidden');
+        
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += 5;
+            const bar = document.getElementById('sync-progress-bar');
+            const pct = document.getElementById('sync-percentage');
+            if (bar) bar.style.width = `${progress}%`;
+            if (pct) pct.innerText = `${progress}%`;
+            
+            if (progress >= 100) {
+                clearInterval(interval);
+                playTransition(() => {
+                    const introScreen = document.getElementById('intro-screen');
+                    if (introScreen) introScreen.classList.add('hidden');
+                    
+                    const views = { database: 'view-database', sync: 'view-sync', timeline: 'view-timeline' };
+                    Object.entries(views).forEach(([key, id]) => {
+                        const el = document.getElementById(id);
+                        if(el) { el.style.display = key === 'database' ? 'flex' : 'none'; el.classList.toggle('hidden', key !== 'database'); }
+                    });
+                    ['nav-database', 'nav-sync', 'nav-timeline'].forEach(n => {
+                        const el = document.getElementById(n);
+                        if (el) el.classList.remove('text-animus-ai', 'border-animus-ai');
+                    });
+                    const navDb = document.getElementById('nav-database');
+                    if (navDb) navDb.classList.add('text-animus-ai', 'border-animus-ai');
+                    
+                    renderCivilization('persia');
+                });
+            }
+        }, 50);
+    }
+
+    const civilizations = [
+        {
+            id: 'persia', name: '아케메네스 왕조 페르시아', detailTitle: '고대 서아시아 세계의 변천', engName: 'Achaemenid Persia',
+            coords: '32.93, 52.89', period: '기원전 6세기',
+            summary: '서아시아를 다시 통일하고 관용 정책을 펼쳤으며 조로아스터교가 확산되었다.',
+            description: '키루스 2세가 서아시아를 다시 통일하였고, 다리우스 1세 때 전성기를 맞았다. 넓은 영토를 다스리기 위해 총독을 파견하고 왕의 길을 만들었다.',
+            coreData: [
+                {
+                    title: "발전",
+                    content: "서아시아 지역에서는 바빌로니아 왕국이 쇠퇴한 후 아시리아가 성장하였다. 아시리아는 기원전 7세기 무렵 우수한 철제 무기와 전술로 서아시아를 최초로 통일하였다. 그러나 가혹한 통치로 피지배 민족이 반란을 일으켜 아시리아는 통일한 지 60여 년 만에 멸망하였다.\n\n기원전 6세기, 아케메네스 왕조 페르시아의 키루스 2세가 서아시아를 다시 통일하였다. 페르시아는 피정복민에게 세금을 거두는 대신 그들의 풍습을 존중하는 관용 정책을 펼쳐 피정복민의 협조를 얻었다.\n\n페르시아는 다리우스 1세 때 지중해 연안에서 인더스강에 이르는 제국으로 성장하면서 전성기를 맞았다. 그는 넓어진 영토를 효율적으로 다스리고자 전국을 20여 개의 주로 나누어 총독 을 보냈으며, ‘왕의 눈’, ‘왕의 귀’라고 불리는 감찰관을 보내 총독을 감시하였다. 또한 ‘왕의 길’이라는 도로도 만들었다.",
+                    image: "아케메네스 왕조 페르시아의 영역.jpg",
+                    image2: "다리우스 1세에게 조공하는 행렬.jpg" 
+                },
+                {
+                    title: "그리스·페르시아 전쟁",
+                    content: "페르시아는 지중해 세계의 주도권을 잡기 위해 그리스와 세 차례 전쟁을 벌였으나 패하였다(그리스·페르시아 전쟁). 총독들의 반란으로 점차 약해진 페르시아는 결국 알렉산드로스에게 멸망하였다(기원전 330).",
+                    image: "그리스·페르시아 전쟁.jpg" 
+                },
+                {
+                    title: "문화와 조로아스터교",
+                    content: "페르시아는 정복지의 다양한 문화를 융합한 국제적인 문화를 꽃피웠다. 이를 잘 보여주는 대표적인 건축물이 다리우스 1세가 세운 수도 페르세폴리스의 궁전이다.\n\n세상을 선과 악의 대결로 보고 선과 빛의 신 아후라 마즈다를 섬기는 조로아스터교가 황실의 후원을 받으며 널리 확산되었다. 이 종교의 천국과 지옥, 최후의 심판 같은 교리는 크리스트교와 이슬람교에 큰 영향을 주었다.",
+                    image: "아후라마즈다.jpg" 
+                }
+            ],
+            wiki: '메소포타미아 지역에서는 바빌로니아 왕국이 쇠퇴한 후 아시리아가 강력한 국가로 등장하였다. 기원전 6세기에는 아케메네스 왕조 페르시아가 서아시아를 통일하였다.',
+            archivalImage: "고대 서아시아 세계의 변천.jpg",
+            textbookData: {
+                sources: [
+                    {
+                        title: "역사 탐구: 페르시아의 통치 방식",
+                        image: "",
+                        customBlock: `
+                            <div class="flex flex-col gap-5 mb-5">
+                                <div class="w-full bg-[#151e2e] p-5 border-l-4 border-animus-ai text-animus-text-light font-kr text-[14px] leading-relaxed break-keep shadow-inner">
+                                    "나는 키루스, 세계의 왕, 위대한 왕, 정정당당한 왕, 사방의 왕이며 ……바빌론 거주민에 대하여는 …… 넘겨받았던 도시들을 돌려주었다. …… 이전의 원주민(유대인)을 모아서 그들의 원래 땅으로 돌려보냈다. …… 아후라 마즈다의 뜻에 따라 말하니 살아 있는 한 너희의 전통과 종교를 존중하노라."<br>
+                                    <span class="block mt-2 text-right font-bold text-animus-ai">- 키루스 2세의 원통 내용</span>
+                                </div>
+                                <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
+                                    <img src="키루스 2세의 원통.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
+                                </div>
+                            </div>
+                        `,
+                        content: "키루스 2세가 바빌로니아를 정복한 후 피정복민의 전통과 종교를 존중한다는 관용의 선언을 새긴 유물이다."
+                    }
+                ]
+            }
+        },
+        {
+            id: 'greece', name: '그리스', detailTitle: '파르테논 신전', engName: 'Ancient Greece',
+            coords: '37.98, 23.72', period: '기원전 8세기~',
+            summary: '폴리스가 형성되고 아테네의 민주정과 스파르타의 군사 통치가 발전하였다.',
+            description: '산지가 많은 지형적 특징으로 폴리스라는 작은 도시 국가들이 형성되었다. 대표적인 폴리스로 아테네와 스파르타가 발전하였다.',
+            coreData: [
+                {
+                    title: "폴리스의 형성",
+                    content: "기원전 2000년경부터 에게해 주변에서는 이집트 문명과 메소포타미아 문명의 영향을 받아 에게 문명이 발달하였다. 기원전 1200년경 에게 문명이 몰락한 후, 남쪽으로 내려간 그리스인들은 지중해 가까운 곳에 모여 살기 시작하였다. 그리스는 산이 많고 평야가 적었기 때문에 그리스인들은 일찍부터 바다를 이용하여 생활에 필요한 것을 얻었다. 이들은 적의 침략을 막아 내기 좋은 곳에 요새나 성을 쌓고 생활하였는데, 이로부터 폴리스라는 작은 도시 국가들이 나타났다.\n\n기원전 8세기 무렵 그리스를 포함한 지중해 여러 지역에 폴리스가 발전하였다. 폴리스들은 정치적으로 독립되어 있었으나, 서로 같은 언어를 사용하고 같은 신들을 믿었으며, 주기적으로 올림피아 제전을 열어 유대감을 다졌다.",
+                    image: "고대 지중해의 주요 폴리스.jpg" 
+                },
+                {
+                    title: "스파르타",
+                    content: "그리스의 폴리스 중 대표적인 곳은 스파르타와 아테네였다. 그중 정복 국가로 출발한 스파르타는 강력한 군사 통치를 실시하였다. 시민들은 어려서부터 엄격한 군사 훈련을 받았기 때문에 스파르타는 막강한 군사력을 확보할 수 있었다. 한편, 스파르타에서는 왕과 귀족이 정치를 맡았으나 나라의 중요한 일은 민회에서 정하였다.",
+                    image: "스파르타 전사 조각.jpg" 
+                },
+                {
+                    title: "아테네",
+                    content: "그리스의 대표적인 폴리스인 아테네는 처음에는 왕정이었으나 점차 귀족들이 정치를 이끄는 귀족정으로 바뀌었다. 이러한 상황에서 무역과 상공업으로 부유해진 평민들이 스스로 무장하고 전쟁에 참여하면서 평민의 지위가 높아졌다.\n\n평민들의 정치 참여 요구가 높아진 아테네는 점차 민주정이 발전하였다. 기원전 6세기에 솔론은 재산을 가진 일부 평민이 정치에 참여할 수 있게 하였다. 클레이스테네스는 정치 참여 자격에서 재산 기준을 없앴으며, 투표로 독재자가 될 가능성이 높은 사람을 뽑아 일정 기간 쫓아내는 도편추방제를 실시하였다.\n\n기원전 5세기, 페리클레스가 권력을 잡았을 때 아테네의 민주정은 전성기를 맞았다. 시민들은 민회에 자유롭게 참여하여 폴리스의 중요한 문제를 논의하였다. 관직과 배심원은 대부분 추첨으로 뽑았고, 이들에게는 수당도 지급되었다. 그러나 아테네에서는 성인 남성만 정치에 참여할 수 있었고, 여성, 노예, 외국인은 정치에 참여할 수 없었다.",
+                    image: "아테나 여신상.jpg" 
+                },
+                {
+                    title: "그리스 세계의 발전과 쇠퇴",
+                    content: "기원전 5세기, 서아시아 지역을 통일한 페르시아가 그리스를 침입하여 그리스·페르시아 전쟁이 일어났다. 그리스의 폴리스들은 아테네를 중심으로 마라톤 전투 등에서 승리하여 페르시아를 막아 냈다. 전쟁 이후 폴리스들은 델로스 동맹을 맺어 페르시아의 침입에 대비하였다.\n\n델로스 동맹의 대표였던 아테네는 지중해 무역을 독차지하고 세력을 넓히면서 주변의 폴리스들을 압박하였다. 그러자 스파르타를 중심으로 한 펠로폰네소스 동맹이 이에 반발하여 두 세력 간에 전쟁이 일어났다(펠로폰네소스 전쟁). 이 전쟁으로 스파르타가 승리하였으나, 오랜 전쟁으로 쇠퇴한 그리스 세계는 기원전 4세기 마케도니아에 정복되었다.",
+                    image: "그리스·페르시아 전쟁의 전개.jpg" 
+                },
+                {
+                    title: "문화",
+                    content: "그리스인들은 인간 중심적이면서 합리적인 문화를 발전시켰다. 그리스 신화의 신들은 인간의 모습과 감정을 지닌 것으로 묘사되었는데, 이는 호메로스의 작품에 잘 나타나 있다. 아테네에서는 「오이디푸스왕」, 「안티고네」 등 인간관계나 사회 문제를 주제로 한 연극이 유행하였다. 파르테논 신전 등의 건축과 「원반 던지는 사람」 등의 조각에서는 조화와 균형을 강조한 그리스 양식을 엿볼 수 있다.\n\n그리스에서는 철학을 비롯한 학문이 크게 발달하였다. 철학은 자연에 대한 관심에서 시작되었는데, 기원전 5세기경 소피스트에 이르러 철학의 관심이 인간과 사회로 확대되었다. 철학자 집단인 소피스트는 진리의 상대성을 강조한 반면, 소크라테스는 인간의 삶에 객관적이고 절대적인 진리가 있다고 주장하여 소피스트를 비판하였다. 소크라테스의 철학은 플라톤과 아리스토텔레스에게 이어졌고, 이들의 사상은 서양 철학의 바탕이 되었다. 역사에서는 헤로도토스와 투키디데스가, 의학에서는 히포크라테스가, 수학에서는 피타고라스가 업적을 남겼다.",
+                    image: "원반 던지는 사람.jpg" 
+                }
+            ],
+            wiki: '아테네의 수호신인 아테나 여신을 모신 신전으로, 조화와 균형을 강조한 고대 그리스 건축 양식의 특징을 가장 잘 보여주는 대표적인 문화유산이다.',
+            archivalImage: "파르테논 신전.jpg",
+            textbookData: {
+                sources: [
+                    {
+                        title: "역사 탐구: 폴리스의 구조",
+                        image: "",
+                        customBlock: `
+                            <div class="flex flex-col gap-5 mb-5">
+                                <div class="w-full bg-[#151e2e] p-5 border-l-4 border-animus-ai text-animus-text-light font-kr text-[14px] leading-relaxed break-keep shadow-inner">
+                                    그리스의 폴리스는 중심에 높은 언덕인 아크로폴리스가 있고, 그 아래에 평장인 아고라가 있는 구조였다. 아크로폴리스에는 신전을 세워 제사를 지내고 방어 요새로 삼았다. 아고라는 시민들이 모여 민회를 열거나 재판을 하고, 물건을 사고파는 공공의 장소이자 시장 역할을 하였다.
+                                </div>
+                                <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
+                                    <img src="폴리스의 구조.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
+                                </div>
+                            </div>
+                        `,
+                        content: ""
+                    },
+                    {
+                        title: "역사 탐구: 아테네와 스파르타",
+                        image: "",
+                        customBlock: `
+                            <div class="flex flex-col gap-5 mb-5">
+                                <div class="w-full bg-[#151e2e] p-5 border-l-4 border-animus-ai text-animus-text-light font-kr text-[14px] leading-relaxed break-keep shadow-inner">
+                                    아테네는 해상 교역을 바탕으로 상공업이 발달하였고 점진적으로 민주 정치가 꽃피었다. 반면 스파르타는 적은 수의 시민이 다수의 피지배층을 다스리기 위해 엄격하고 혹독한 군사 훈련을 강요하는 강력한 군사 통치(스파르타식 교육)를 실시하였다.
+                                </div>
+                                <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
+                                    <img src="아테네와 스파르타.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
+                                </div>
+                            </div>
+                        `,
+                        content: ""
+                    },
+                    {
+                        title: "역사 탐구: 아테네 민주 정치의 발전",
+                        image: "",
+                        customBlock: `
+                            <div class="flex flex-col gap-5 mb-5">
+                                <div class="w-full bg-[#151e2e] p-5 border-l-4 border-animus-ai text-animus-text-light font-kr text-[14px] leading-relaxed break-keep shadow-inner">
+                                    아테네의 민주 정치는 솔론의 금권 정치, 클레이스테네스의 도편 추방제 실시를 거치며 기틀을 다졌다. 이후 기원전 5세기 페리클레스 시대에 이르러 모든 성인 남성 시민이 민회에 참여하여 국가의 중대사를 직접 결정하고, 관직과 배심원을 추첨으로 뽑는 직접 민주 정치가 완성되었다.
+                                </div>
+                                <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
+                                    <img src="도편.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
+                                </div>
+                            </div>
+                        `,
+                        content: ""
+                    }
+                ]
+            }
+        },
+        {
+            id: 'hellenism', name: '알렉산드로스 제국', detailTitle: '알렉산드로스 대왕', engName: 'Alexander & Hellenism',
+            coords: '41.60, 21.74', period: '기원전 4세기',
+            summary: '알렉산드로스가 대제국을 건설하여 동서가 융합된 헬레니즘 문화를 이루었다.',
+            description: '마케도니아의 알렉산드로스는 이집트와 페르시아를 정복하고 인더스강까지 세력을 넓혀 동서양을 아우르는 대제국을 건설하였다.',
+            coreData: [
+                {
+                    title: "동방 원정과 융합 정책",
+                    content: "그리스 북쪽에 위치한 마케도니아는 펠로폰네소스 전쟁으로 약해진 그리스를 정복하였다. 이후 마케도니아의 왕 알렉산드로스는 동방 원정에 나서 제국을 만들었다. 그는 각지에 알렉산드리아라는 도시를 세워 그리스인을 이주시키고, 그리스 문화를 여러 지역에 전파하였다. 또한 정복지 출신의 사람을 관리로 뽑는 등 동서 융합을 꾀하였다. 그러나 알렉산드로스가 죽은 후 제국은 분열되었고, 이후 로마에 정복되었다.",
+                    image: "알렉산드로스 대왕의 동방 원정.jpg" 
+                },
+                {
+                    title: "헬레니즘 문화",
+                    content: "한편, 알렉산드로스의 동방 원정 과정에서 그리스 문화와 동방 문화가 융합한 헬레니즘 문화가 발전하였다. 대제국이 세워지자 폴리스 중심의 공동체 의식이 줄어들고 개인의 행복을 추구하는 개인주의가 등장하였다. 이와 함께 제국 아래 모두가 같은 시민이라는 세계 시민주의가 발달하였다.\n\n이 시기에는 그리스 학문의 영향으로 수학, 과학 등이 크게 발전하였다. 물리학에서는 아르키메데스, 기하학에서는 에우클레이데스(유클리드)가 활약하였으며, 미술에서는 「라오콘 군상」 등의 조각이 만들어졌다.",
+                    image: "라오콘 군상.jpg" 
+                }
+            ],
+            wiki: '마케도니아의 왕으로, 이집트와 페르시아를 정복하고 인더스강 유역에 이르는 광대한 대제국을 건설하였다. 뛰어난 군사적 지도력으로 동방 원정을 이끌었으며, 그의 정복 활동을 통해 그리스 문화와 동방 문화가 융합된 헬레니즘 문화가 형성되는 계기를 마련하였다.',
+            archivalImage: "알렉산드로스 대왕.jpg",
+            textbookData: {
+                sources: [
+                    {
+                        title: "역사 탐구: 알렉산드로스 대왕의 동서 융합 정책",
+                        image: "",
+                        customBlock: `
+                            <div class="flex flex-col gap-5 mb-5">
+                                <div class="w-full bg-[#151e2e] p-5 border-l-4 border-animus-ai text-animus-text-light font-kr text-[14px] leading-relaxed break-keep shadow-inner">
+                                    알렉산드로스 대왕은 동방 원정으로 넓은 영토를 차지한 뒤 적극적인 동서 융합 정책을 추진하였다. 각지에 자신의 이름을 딴 도시 알렉산드리아를 세워 그리스 문화를 전파하였고, 페르시아인을 관리로 등용하거나 페르시아의 군주제를 수용하였다. 또한 그리스인과 페르시아인의 혼인을 장려하여 문화적 화합을 꾀하였다.
+                                </div>
+                                <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
+                                    <img src="알렉산드로스 대왕의 동서 융합 정책.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
+                                </div>
+                            </div>
+                        `,
+                        content: ""
+                    },
+                    {
+                        title: "역사 탐구: 헬레니즘 문화의 형성과 동서 문화 교류",
+                        image: "",
+                        customBlock: `
+                            <div class="flex flex-col gap-5 mb-5">
+                                <div class="w-full bg-[#151e2e] p-5 border-l-4 border-animus-ai text-animus-text-light font-kr text-[14px] leading-relaxed break-keep shadow-inner">
+                                    알렉산드로스의 원정으로 그리스 문화와 동방의 고유문화가 융합된 헬레니즘 문화가 형성되었다. 대제국 안에서 폴리스의 좁은 틀을 벗어나 개인주의와 세계 시민주의가 발달하였다. 헬레니즘 문화의 사실적인 미술 양식은 인도의 간다라 미술에 영향을 주었고, 이는 훗날 중국과 우리나라, 일본 등 동아시아의 불교 미술에도 전해지며 폭넓은 동서 문화 교류를 이끌어 냈다.
+                                </div>
+                                <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
+                                    <img src="헬레니즘 문화의 형성과 동서 문화 교류.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
+                                </div>
+                            </div>
+                        `,
+                        content: ""
+                    }
+                ]
+            }
+        },
+        {
+            id: 'rome', name: '로마', detailTitle: '포로 로마노', engName: 'Roman Empire',
+            coords: '41.89, 12.49', period: '기원전 8세기~',
+            summary: '지중해 세계를 통일하고, 실용적인 로마법과 대규모 건축 등 문화를 발전시켰다.',
+            description: '이탈리아반도의 작은 도시 국가에서 출발하여 공화정을 거쳐 지중해를 지배하는 대제국으로 성장하며 오랜 평화와 번영을 누렸다.',
+            coreData: [
+                {
+                    title: "공화정의 성립과 발전",
+                    content: "기원전 8세기 무렵 로마는 이탈리아반도에서 작은 도시 국가로 출발하였다. 처음에는 왕정이었으나 기원전 6세기 말에 귀족들이 왕을 몰아내고 공화정을 세웠다. 공화정 초기에는 귀족들이 원로원 을 중심으로 집정관 등 주요 관직을 독차지하였다. 그러나 평민들이 정복 전쟁에 참여하면서 점차 세력을 키웠고, 이를 바탕으로 귀족에 대항하여 평민의 정치 참여를 요구하였다. 그 결과 평민들은 호민관 을 뽑고 평민회를 세울 수 있었다.",
+                },
+                {
+                    title: "공화정의 위기",
+                    content: "기원전 3세기에 이탈리아반도를 통일한 로마는 카르타고와 지중해 해상권을 놓고 세 차례 전쟁을 벌였다(로마-카르타고 전쟁). 전쟁에서 승리한 로마는 이후 동쪽으로 정복 전쟁을 계속하여 지중해 세계를 지배하였다.\n\n전쟁을 거치면서 로마의 귀족들은 토지를 많이 차지하여 노예를 이용한 대농장(라티푼디움)을 경영하였다. 반면 자영 농민들은 토지를 잃고 몰락하면서 로마 공화정에 위기가 찾아왔다. 호민관으로 뽑힌 그라쿠스 형제 는 자영 농민 등을 위한 개혁을 실시하였지만 귀족들의 반대로 실패하였다.\n\n이후 로마는 군인 정치가들이 권력 다툼을 벌이면서 혼란을 겪었다. 기원전 1세기에는 카이사르가 강력한 군사력을 내세워 정권을 잡았으나 독재에 반대한 세력에게 암살당하였다.",
+                    image: "그라쿠스 형제.jpg" 
+                },
+                {
+                    title: "제국의 발전과 쇠퇴",
+                    content: "카이사르의 뒤를 이은 옥타비아누스는 로마의 정치적 혼란을 안정시키고 행정권, 군사권 등의 권력을 차지하였다. 이에 원로원은 그에게 ‘아우구스투스(존엄한 자)’라는 칭호를 주었고, 옥타비아누스는 황제나 다름없는 권력을 누렸다. 이때부터는 로마의 공화정이 끝나고 황제가 다스리는 제정이 시작되었다(기원전 27).\n\n옥타비아누스 이후 로마는 약 200년 동안 로마의 평화라고 불리는 번영을 누렸다. 그러나 2세기 말부터 게르만족 등이 침입하여 쇠퇴하기 시작하였다. 3세기 말에는 디오클레티아누스가 제국을 4분할한 뒤 네 명의 통치자가 공동으로 다스리게 하였다. 4세기 초에는 콘스탄티누스 대제가 수도를 콘스탄티노폴리스로 옮기는 등 제국을 다시 일으켜 세우고자 하였다. 이러한 노력에도 로마는 4세기 말 동서로 분리되었다. 동로마 제국(비잔티움 제국)은 이후 1000여 전 동안 지속되었으나, 서로마 제국은 게르만족의 침입으로 멸망하였다(476).",
+                    image: "로마의 영역.jpg" 
+                },
+                {
+                    title: "로마의 문화",
+                    content: "로마에서는 넓은 제국을 다스리는 데 도움이 되는 실용적인 문화가 발달하였다. 로마는 공화정 초기에 문서의 형식을 갖춘 성문법 인 12표법을 만들었다. 12표법은 로마 시민에게만 적용하는 시민법이었는데, 시민법은 점차 로마 제국의 모든 민족에게 적용하는 만민법으로 확대되었다. 동로마 제국에서는 로마의 법률을 모아 『유스티니아누스 법전』 을 만들었고, 이는 유럽 법률의 토대가 되었다.\n\n로마에서는 법률과 함께 건축도 발달하였다. 로마인들은 콘크리트를 건축 재료로 이용하였으며, 아치와 돔의 원리를 활용하여 거대한 건물을 지었다. 사람과 물자의 이동을 원활하게 하고자 도시들을 연결하는 도로망을 건설하였으며, 도시에 물을 공급하고 하수를 내보내는 상하수도 시설도 만들었다. 도시에는 공중목욕탕, 공중화장실, 원형 경기장, 신전 등 시민들을 위한 건물이 있었다.",
+                    image: "수도교.jpg" 
+                }
+            ],
+            wiki: '고대 로마의 정치, 종교, 경제 중심지 역할을 했던 공공 광장이다. 신전, 공회당, 원로원 회의장 등 다양한 건축물이 모여 있어 당시 로마 시민들의 활발한 공공 생활 모습을 잘 보여준다.',
+            archivalImage: "포로 로마노.jpg",
+            textbookData: {
+                sources: [
+                    {
+                        title: "역사 탐구: 로마의 통치 체제 변화",
+                        image: "",
+                        customBlock: `
+                            <div class="flex flex-col gap-5 mb-5">
+                                <div class="w-full bg-[#151e2e] p-5 border-l-4 border-animus-ai text-animus-text-light font-kr text-[14px] leading-relaxed break-keep shadow-inner">
+                                    로마의 정치 체제는 왕정 → 공화정(귀족 중심에서 평민 참여 확대로 발전) → 제정(옥타비아누스가 사실상 황제의 권력을 누림)의 순서로 변화하였다.
+                                </div>
+                                <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
+                                    <img src="옥타비아누스.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
+                                </div>
+                            </div>
+                        `,
+                        content: ""
+                    },
+                    {
+                        title: "역사 탐구: 로마법의 발달 과정",
+                        image: "",
+                        customBlock: `
+                            <div class="flex flex-col gap-5 mb-5">
+                                <div class="w-full bg-[#151e2e] p-5 border-l-4 border-animus-ai text-animus-text-light font-kr text-[14px] leading-relaxed break-keep shadow-inner">
+                                    로마는 공화정 초기에 문서의 형식을 갖춘 성문법인 12표법을 만들었다. 12표법은 로마 시민에게만 적용하는 시민법이었는데, 시민법은 점차 로마 제국의 모든 민족에게 적용하는 만민법으로 확대되었다. 동로마 제국에서는 로마의 법률을 모아 『유스티니아누스 법전』을 만들었고, 이는 유럽 법률의 토대가 되었다.
+                                </div>
+                                <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
+                                    <img src="로마법의 변천.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
+                                </div>
+                            </div>
+                        `,
+                        content: ""
+                    }
+                ]
+            }
+        },
+        {
+            id: 'christianity', name: '크리스트교의 등장과 확산', detailTitle: '카타콤', engName: 'Rise of Christianity',
+            coords: '31.76, 35.21', period: '기원후 1세기~',
+            summary: '예수가 창시한 크리스트교는 로마의 박해를 이겨내고 제국의 국교가 되었다.',
+            description: '로마의 지배를 받던 서아시아의 팔레스타인 지역에서 예수는 민족과 신분에 상관없이 모두 평등하며, 누구나 사랑과 믿음으로 구원을 받을 수 있다고 가르쳤다.',
+            coreData: [
+                {
+                    title: "크리스트교의 등장과 확산",
+                    content: "로마의 지배를 받던 서아시아의 팔레스타인 지역에서 예수는 민족과 신분에 상관없이 모두 평등하며, 누구나 사랑과 믿음으로 구원을 받을 수 있다고 가르쳤다. 예수의 제자들이 이러한 가르침을 전파하면서 크리스트교가 성립되었다. 크리스트교는 여성, 하층민, 노예 등 소외된 사람들을 중심으로 널리 퍼져 나갔다.\n\n크리스트교도들은 유일신을 숭배하고 황제 숭배를 거부하여 박해를 받았으나, 크리스트교를 믿는 사람들은 꾸준히 늘어났다. 이에 콘스탄티누스 대제는 제국의 안정을 위해 밀라노 칙령을 내려 크리스트교를 공인하였다(313). 4세기 말 로마 제국은 크리스트교를 국교로 인정하였고, 이후 크리스트교는 세계적인 종교로 성장하였다.",
+                    image: "니케아 공의회.jpg" 
+                }
+            ],
+            wiki: '크리스트교도들은 유일신을 숭배하고 황제 숭배를 거부한다는 이유로 로마 제국으로부터 심한 박해를 받았다. 이들은 박해를 피해 지하 묘지인 카타콤에 숨어 예배를 드리며 신앙을 지켜나갔다.',
+            archivalImage: "카타콤.jpg",
+            textbookData: {
+                sources: []
+            }
+        }
+    ];
+
+    const timelineEvents = [
+        { year: '기원전 6세기', title: '페르시아 재통일', desc: '아케메네스 왕조 페르시아의 키루스 2세가 관용 정책으로 서아시아를 다시 통일하였다.', region: 'PERSIA' },
+        { year: '기원전 490년', title: '마라톤 전투', desc: '그리스의 아테네군이 마라톤 평원에서 페르시아의 침공을 막아내며 승리를 거두었다.', region: 'GREECE' },
+        { year: '기원전 5세기', title: '아테네 민주정 전성기', desc: '페리클레스 시대에 성인 남자 시민이 모두 참여하는 직접 민주 정치가 전성기를 맞이했다.', region: 'GREECE' },
+        { year: '기원전 4세기', title: '알렉산드로스 제국 건설', desc: '알렉산드로스가 페르시아를 무너뜨리고 헬레니즘 문화를 이루는 대제국을 세웠다.', region: 'HELLENISM' },
+        { year: '기원전 27년', title: '로마 제정 성립', desc: '옥타비아누스가 권력을 잡아 아우구스투스 칭호를 받으며 사실상의 제정이 시작되었다.', region: 'ROME' },
+        { year: '313년', title: '크리스트교 공인', desc: '콘스탄티누스 대제가 제국의 안정을 위해 밀라노 칙령을 내려 크리스트교를 정식 공인하였다.', region: 'ROME' }
+    ];
+
+    function showSourceImagePopup(imageSrc) {
+        playUIBeep();
+        const popup = document.getElementById('source-image-popup');
+        const imgEl = document.getElementById('source-popup-img');
+        if (imgEl && imageSrc) {
+            imgEl.src = imageSrc;
+            imgEl.style.display = 'block';
+        }
+        if (popup) {
+            popup.classList.remove('hidden');
+            popup.classList.add('flex');
+        }
+    }
+
+    function hideSourceImagePopup() {
+        playUIBeep();
+        const popup = document.getElementById('source-image-popup');
+        if (popup) {
+            popup.classList.add('hidden');
+            popup.classList.remove('flex');
+        }
+    }
+
+    function showOriginPopup(content, imageSrc, imageSrc2) {
+        playUIBeep();
+        const popup = document.getElementById('origin-core-popup');
+        const popupText = document.getElementById('origin-popup-text');
+        const popupPanel = document.getElementById('origin-popup-panel');
+        const singleImageContainer = document.getElementById('origin-popup-image-container');
+        const singleImageEl = document.getElementById('origin-popup-image');
+        
+        const dualImageContainer = document.getElementById('origin-popup-image-container-dual');
+        const dualImageEl1 = document.getElementById('origin-popup-image-dual-1');
+        const dualImageEl2 = document.getElementById('origin-popup-image-dual-2');
+        
+        if (popupText && content) {
+            popupText.innerText = content;
+        }
+        
+        let hasImage1 = (imageSrc && imageSrc !== 'undefined' && imageSrc !== 'null' && imageSrc !== '');
+        let hasImage2 = (imageSrc2 && imageSrc2 !== 'undefined' && imageSrc2 !== 'null' && imageSrc2 !== '');
+
+        if (hasImage1 && hasImage2) {
+            if (singleImageContainer) singleImageContainer.classList.add('hidden');
+            
+            if (dualImageEl1) { dualImageEl1.src = imageSrc; dualImageEl1.style.display = 'block'; }
+            if (dualImageEl2) { dualImageEl2.src = imageSrc2; dualImageEl2.style.display = 'block'; }
+            
+            if (dualImageContainer) { dualImageContainer.classList.remove('hidden'); dualImageContainer.classList.add('flex'); }
+            if (popupPanel) popupPanel.classList.replace('max-w-2xl', 'max-w-5xl');
+        } else if (hasImage1 && !hasImage2) {
+            if (dualImageContainer) { dualImageContainer.classList.add('hidden'); dualImageContainer.classList.remove('flex'); }
+            
+            if (singleImageEl) { singleImageEl.src = imageSrc; singleImageEl.style.display = 'block'; }
+            
+            if (singleImageContainer) { singleImageContainer.classList.remove('hidden'); singleImageContainer.classList.add('flex'); }
+            if (popupPanel) popupPanel.classList.replace('max-w-2xl', 'max-w-5xl');
+        } else {
+            if (singleImageContainer) { singleImageContainer.classList.add('hidden'); singleImageContainer.classList.remove('flex'); }
+            if (dualImageContainer) { dualImageContainer.classList.add('hidden'); dualImageContainer.classList.remove('flex'); }
+            if (popupPanel) popupPanel.classList.replace('max-w-5xl', 'max-w-2xl');
+        }
+        
+        if (popup) {
+            popup.classList.remove('hidden');
+            popup.classList.add('flex');
+        }
+    }
+
+    function hideOriginPopup() {
+        playUIBeep();
+        const popup = document.getElementById('origin-core-popup');
+        if (popup) {
+            popup.classList.add('hidden');
+            popup.classList.remove('flex');
+        }
+    }
+
+    function renderCivilization(id) {
+        currentCivId = id;
+        currentSyncCivId = id;
+        const civ = civilizations.find(c => c.id === id);
+        if (!civ) return;
+        playUIBeep();
+        
+        setSafeText('active-region-name', civ.engName.toUpperCase());
+        setSafeText('popup-title', civ.name);
+        setSafeText('popup-desc', civ.description);
+        
+        const mapIframe = document.getElementById('google-map-iframe');
+        const popup = document.getElementById('civilization-popup');
+        const originMarkers = document.getElementById('origin-markers');
+
+        if (mapIframe) mapIframe.src = `https://maps.google.com/maps?q=${civ.coords.replace(/\s/g,'')}&z=5&t=k&output=embed`;
+        if (popup) popup.classList.remove('hidden');
+        if (originMarkers) originMarkers.classList.add('hidden');
+
+        setSafeText('detail-title', civ.detailTitle);
+        const detailImg = document.getElementById('detail-image');
+        if (detailImg) {
+            detailImg.src = civImages[id] || '';
+            detailImg.style.display = detailImg.src ? 'block' : 'none';
+        }
+        setSafeHTML('detail-sections', `
+            <p class='text-[13px] opacity-80 leading-relaxed font-kr break-keep'>${civ.wiki}</p>
+        `);
+        const btnRunSync = document.getElementById('btn-run-sync');
+        if(btnRunSync) {
+            btnRunSync.onclick = () => {
+                renderDetailedSync(id);
+                switchMainTab('sync');
+            };
+        }
+        renderList();
+    }
+
+    function renderList() {
+        const c = document.getElementById('civilization-list-container');
+        if (!c) return;
+        
+        c.innerHTML = civilizations.map(cv => `
+            <div onclick="renderCivilization('${cv.id}')" class="p-4 bg-[#151e2e]/30 border border-animus-ai/20 rounded-sm cursor-pointer transition-all hover:bg-[#151e2e]/60 ${cv.id === currentCivId ? 'border-animus-ai bg-[#151e2e]/50 shadow-[0_0_15px_rgb(var(--theme-rgb)/0.15)]' : ''}">
+                <div class="flex items-center gap-3">
+                    <div>
+                        <div class="text-white font-bold text-base font-kr ${cv.id === 'persia' && currentCivId === 'persia' ? 'text-animus-ai drop-shadow-[0_0_5px_rgb(var(--theme-rgb)/0.6)]' : ''}">${cv.name}</div>
+                        <div class="text-[10px] text-animus-text-dim font-tech mt-1">${cv.period}</div>
+                    </div>
+                </div>
+                <p class="text-[11px] text-animus-text-dim mt-3 leading-relaxed border-t border-animus-ai/10 pt-2">${cv.summary.substring(0, 50)}...</p>
+            </div>
+        `).join('');
+    }
+
+    function renderDetailedSync(id) {
+        currentSyncCivId = id;
+        const civ = civilizations.find(c => c.id === id);
+        if (!civ) return;
+        const tabs = document.getElementById('sync-tabs-container');
+        const content = document.getElementById('sync-dynamic-content');
+        
+        if (tabs) {
+            tabs.innerHTML = civilizations.map(c => `
+                <button onclick="playUIBeep(); renderDetailedSync('${c.id}')" class="px-6 py-3 font-kr text-base font-bold border-b-2 cursor-pointer transition-all ${c.id === id ? 'text-animus-ai border-animus-ai bg-[#151e2e]/40' : 'text-animus-text-dim border-transparent hover:text-white'}">
+                    ${c.name}
+                </button>
+            `).join('');
+        }
+        
+        let sourcesHTML = '';
+        if (civ && civ.textbookData && civ.textbookData.sources) {
+            sourcesHTML = civ.textbookData.sources.map(src => `
+                <div class="source-box font-kr border border-animus-ai/30 mb-6 bg-[#0b111e]/50 shadow-lg rounded-md">
+                    <h4 class="text-animus-ai text-lg font-kr font-bold mb-5 flex items-center gap-3 border-b border-animus-ai/20 pb-2">
+                        <span class="material-symbols-outlined text-2xl">account_balance</span> 
+                        <span>${src.title}</span>
+                        ${(src.popupImage || src.image) ? `<span class="material-symbols-outlined text-animus-text-dim hover:text-animus-ai cursor-pointer transition-transform hover:scale-110 ml-auto" onclick="showSourceImagePopup('${src.popupImage || src.image}')" title="이미지 스캔">image</span>` : ''}
+                    </h4>
+                    ${src.customBlock ? src.customBlock : ''}
+                    ${src.image && !src.customBlock ? `<div class="relative w-full flex justify-center border border-animus-ai/20 bg-[#151e2e] overflow-hidden rounded-sm mb-5 group shadow-inner">
+                        <img src="${src.image}" class="max-w-full max-h-[300px] w-auto h-auto object-contain transition-transform duration-700 opacity-90 group-hover:scale-105" onerror="this.style.display='none'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0b111e]/80 via-transparent to-transparent pointer-events-none"></div>
+                    </div>` : ''}
+                    ${src.content ? `<p class="text-[15px] text-animus-text-light leading-relaxed break-keep opacity-90">${src.content}</p>` : ''}
+                </div>
+            `).join('');
+        }
+
+        let coreDataHTML = '';
+        if (civ && civ.coreData) {
+            coreDataHTML = civ.coreData.map((data, index) => `
+                <div onclick="showOriginPopup(this.getAttribute('data-content'), this.getAttribute('data-image'), this.getAttribute('data-image2'))" data-content="${data.content}" data-image="${data.image || ''}" data-image2="${data.image2 || ''}" class="animate-float-box mb-6 p-8 bg-[#151e2e]/30 border border-animus-ai/20 rounded-md shadow-[0_0_15px_rgba(212,175,55,0.05)] relative overflow-hidden group cursor-pointer hover:bg-[#151e2e]/60 transition-all hover:border-animus-ai backdrop-blur-sm" style="animation-delay: ${index * 0.4}s">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-animus-ai/40 group-hover:bg-animus-ai transition-colors"></div>
+                    <h4 class="text-xl font-kr font-bold text-white flex items-center justify-center gap-3 text-center group-hover:text-animus-ai group-hover:gold-glow transition-colors">
+                        <span class="material-symbols-outlined text-animus-text-dim text-2xl group-hover:text-animus-ai transition-colors">dataset</span>
+                        ${data.title}
+                    </h4>
+                </div>
+            `).join('');
+        }
+
+        if (content) {
+            content.innerHTML = `
+                <div class="lg:col-span-2 space-y-4 lg:pr-10 lg:border-r border-animus-ai/20">
+                    <h3 class="text-2xl font-bold text-white font-kr tracking-wide mb-6 border-b border-animus-ai/40 pb-3 flex items-center gap-3">
+                        <span class="material-symbols-outlined align-middle text-animus-ai text-3xl">menu_book</span> 핵심 데이터 아카이브
+                    </h3>
+                    ${coreDataHTML}
+                </div>
+                <aside class="space-y-6 lg:pl-4">
+                    ${sourcesHTML}
+                </aside>
+            `;
+        }
+    }
+
+    function renderTimeline() {
+        const c = document.getElementById('timeline-events-container');
+        if (!c) return;
+        
+        c.innerHTML = timelineEvents.map((ev, i) => {
+            const isTop = i % 2 === 0;
+            return `
+                <div class="relative flex-shrink-0" style="width: 550px; height: 100%;">
+                    <div class="odyssey-panel p-6 border-animus-ai/30 hover:border-animus-ai transition-all duration-500 hover:-translate-y-1 group shadow-2xl absolute w-full flex items-center gap-5 z-20 rounded-md backdrop-blur-md" style="${isTop ? 'bottom: calc(50% + 30px);' : 'top: calc(50% + 30px);'} left: 0;">
+                        <div class="flex-shrink-0 w-32 text-center">
+                            <div class="text-animus-ai font-kr text-2xl font-bold group-hover:gold-glow break-keep leading-tight">${ev.year}</div>
+                            <span class="px-3 py-1 bg-[#0b111e]/40 border border-animus-ai/30 text-[10px] text-animus-text-dim font-tech uppercase tracking-widest mt-3 inline-block rounded-sm">${ev.region}</span>
+                        </div>
+                        <div class="flex-1 border-l border-animus-ai/30 pl-6">
+                            <h4 class="text-white font-bold text-xl font-kr mb-3">${ev.title}</h4>
+                            <p class="text-[14px] text-animus-text-light font-kr leading-relaxed break-keep opacity-90 group-hover:opacity-100">${ev.desc}</p>
+                        </div>
+                    </div>
+                    <div class="timeline-node transition-transform hover:scale-150 cursor-pointer absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30" onclick="playUIBeep()"></div>
+                    <div class="absolute left-1/2 -translate-x-1/2 w-0.5 bg-animus-ai/40 z-10" style="${isTop ? 'bottom: 50%; height: 30px;' : 'top: 50%; height: 30px;'}"></div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function switchMainTab(tab) {
+        playTransition(() => {
+            const views = { database: 'view-database', sync: 'view-sync', timeline: 'view-timeline' };
+            Object.entries(views).forEach(([key, id]) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                if (key === tab) {
+                    el.style.display = 'flex';
+                    el.classList.remove('hidden');
+                } else {
+                    el.style.display = 'none';
+                    el.classList.add('hidden');
+                }
+            });
+            ['nav-database', 'nav-sync', 'nav-timeline'].forEach(n => {
+                const el = document.getElementById(n);
+                if (el) el.classList.remove('text-animus-ai', 'border-b-animus-ai', 'opacity-100');
+                if (el) el.classList.add('opacity-60');
+            });
+            const activeNav = document.getElementById('nav-' + tab);
+            if (activeNav) {
+                activeNav.classList.remove('opacity-60');
+                activeNav.classList.add('text-animus-ai', 'border-b-animus-ai');
+            }
+            if (tab === 'sync') renderDetailedSync(currentSyncCivId);
+            if (tab === 'timeline') renderTimeline();
+        });
+    }
+
+    window.onload = () => { renderCivilization('persia'); };
+    let sec = 0;
+    setInterval(() => {
+        sec++;
+        const h = String(Math.floor(sec / 3600)).padStart(2, '0'),
+              m = String(Math.floor((sec % 3600) / 60)).padStart(2, '0'),
+              s = String(sec % 60).padStart(2, '0');
+        const t = document.getElementById('timer');
+        if (t) t.innerText = `${h}:${m}:${s}`;
+    }, 1000);
+</script>
+</body>
+</html>
