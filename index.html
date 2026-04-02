@@ -232,7 +232,6 @@
 <body class="bg-animus-void text-animus-text-light font-kr overflow-hidden h-screen flex flex-col relative">
 <audio id="bgm-player" src="BGM2.mp3" loop></audio>
 
-<!-- 코드로 직접 그린 다이아몬드 & 곡선 애니머스 패턴 배경 (모든 탭 적용) -->
 <div class="fixed inset-0 z-0 pointer-events-none bg-[#0a0a12]">
     <div class="absolute inset-0 animus-bg-pattern opacity-60"></div>
     <div class="absolute inset-0 z-10" style="background: radial-gradient(circle at 50% 50%, transparent 20%, #05070a 90%);"></div>
@@ -393,7 +392,6 @@
         </div>
     </div>
     
-    <!-- 추가된 팝업 컨테이너 (Animus 3.0 디자인 적용) -->
     <div id="origin-core-popup" class="fixed inset-0 z-[200] hidden items-center justify-center bg-[#0b111e]/80 backdrop-blur-sm" onclick="hideOriginPopup()">
         <div id="origin-popup-panel" class="odyssey-panel p-10 max-w-2xl w-full rounded-md shadow-2xl relative border border-animus-ai/50 mx-4 flex flex-col md:flex-row gap-8 items-center transition-all duration-300" onclick="event.stopPropagation()">
             <button class="absolute top-4 right-4 text-animus-text-dim hover:text-white transition-colors z-10" onclick="hideOriginPopup()">
@@ -407,12 +405,10 @@
                 <p id="origin-popup-text" class="text-animus-text-light leading-relaxed font-kr break-keep text-xl md:text-2xl font-medium">
                 </p>
             </div>
-            <!-- 이미지가 1개일 때 -->
             <div id="origin-popup-image-container" class="hidden relative w-full md:w-1/2 flex items-center justify-center border border-animus-ai/30 bg-[#0b111e]/90 overflow-hidden rounded-md group flex-shrink-0 min-h-[200px]">
                 <img id="origin-popup-image" src="" class="w-auto h-auto max-w-full max-h-[400px] object-contain transition-transform duration-700 opacity-90 group-hover:scale-105" onerror="this.style.display='none'">
                 <div class="absolute inset-0 bg-gradient-to-t from-[#0b111e]/80 via-transparent to-transparent pointer-events-none"></div>
             </div>
-            <!-- 이미지가 2개일 때 (이중 레이아웃) -->
             <div id="origin-popup-image-container-dual" class="hidden w-full md:w-1/2 flex-col gap-4 flex-shrink-0 h-[60vh]">
                 <div class="relative w-full flex items-center justify-center border border-animus-ai/30 bg-[#0b111e]/90 overflow-hidden rounded-md group flex-1">
                     <img id="origin-popup-image-dual-1" src="" class="w-auto h-auto max-w-full max-h-[400px] object-contain transition-transform duration-700 opacity-90 group-hover:scale-105" onerror="this.style.display='none'">
@@ -426,7 +422,6 @@
         </div>
     </div>
 
-    <!-- 사료 탐구 이미지 팝업 (Animus 3.0 디자인 적용) -->
     <div id="source-image-popup" class="fixed inset-0 z-[200] hidden items-center justify-center bg-[#0b111e]/80 backdrop-blur-sm" onclick="hideSourceImagePopup()">
         <div class="odyssey-panel p-10 max-w-3xl w-full rounded-md shadow-2xl relative border border-animus-ai/50 mx-4" onclick="event.stopPropagation()">
             <button class="absolute top-4 right-4 text-animus-text-dim hover:text-white transition-colors z-10" onclick="hideSourceImagePopup()">
@@ -451,17 +446,17 @@
     const setSafeText = (id, t) => { const e = document.getElementById(id); if (e) e.innerText = t; };
     const setSafeHTML = (id, h) => { const e = document.getElementById(id); if (e) e.innerHTML = h; };
 
+    // 변경점: 파일명을 그대로 유지하되, 나중에 불러올 때 encodeURI()로 감싸도록 처리했습니다.
     const civImages = {
-        persia: '고대 서아시아 세계의 변천.jpg', // 여기에 로컬 이미지 파일명/경로를 넣으시면 됩니다.
-        greece: '파르테논 신전.jpg', // 여기에 로컬 이미지 파일명/경로를 넣으시면 됩니다.
-        hellenism: '알렉산드로스 대왕.jpg', // 여기에 로컬 이미지 파일명/경로를 넣으시면 됩니다.
-        rome: '포로 로마노.jpg', // 여기에 로컬 이미지 파일명/경로를 넣으시면 됩니다.
-        christianity: '카타콤.jpg' // 여기에 로컬 이미지 파일명/경로를 넣으시면 됩니다.
+        persia: '고대 서아시아 세계의 변천.jpg',
+        greece: '파르테논 신전.jpg',
+        hellenism: '알렉산드로스 대왕.jpg',
+        rome: '포로 로마노.jpg',
+        christianity: '카타콤.jpg'
     };
 
     function initAudioContext() {
         if (audioInitialized) {
-            // 한 번 더 클릭 시 타이핑을 즉시 건너뛰고 시작 버튼을 나타나게 함(스킵 기능 추가)
             if (isTyping) {
                 isTyping = false;
                 clearTimeout(typingTimeout);
@@ -482,11 +477,8 @@
         playUIBeep();
 
         const introScreen = document.getElementById('intro-screen');
-        
-        // 클릭 문구 숨기기
         document.getElementById('click-to-start-text').classList.add('hidden');
 
-        // 터미널 타이핑 효과용 div 생성
         const terminal = document.createElement('div');
         terminal.id = 'intro-terminal';
         terminal.className = 'text-animus-ai font-mono text-[11px] sm:text-xs text-left w-full max-w-lg mt-4 mb-8 tracking-widest whitespace-pre-wrap drop-shadow-[0_0_5px_rgb(var(--theme-rgb)/0.8)] min-h-[120px] transition-opacity duration-300 z-20 relative';
@@ -509,7 +501,7 @@
         let currentText = "";
 
         function typeWriter() {
-            if (!isTyping) return; // 스킵된 경우 조기 종료
+            if (!isTyping) return;
             if (lineIdx < lines.length) {
                 if (charIdx < lines[lineIdx].length) {
                     currentText += lines[lineIdx].charAt(charIdx);
@@ -709,6 +701,7 @@
         }, 50);
     }
 
+    // 변경점: HTML 코드 내 이미지 태그(<img>)의 src 부분에 encodeURI() 적용 완료
     const civilizations = [
         {
             id: 'persia', name: '아케메네스 왕조 페르시아', detailTitle: '고대 서아시아 세계의 변천', engName: 'Achaemenid Persia',
@@ -747,7 +740,7 @@
                                     <span class="block mt-2 text-right font-bold text-animus-ai">- 키루스 2세의 원통 내용</span>
                                 </div>
                                 <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
-                                    <img src="키루스 2세의 원통.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <img src="${encodeURI('키루스 2세의 원통.jpg')}" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
                                 </div>
                             </div>
@@ -802,7 +795,7 @@
                                     그리스의 폴리스는 중심에 높은 언덕인 아크로폴리스가 있고, 그 아래에 평장인 아고라가 있는 구조였다. 아크로폴리스에는 신전을 세워 제사를 지내고 방어 요새로 삼았다. 아고라는 시민들이 모여 민회를 열거나 재판을 하고, 물건을 사고파는 공공의 장소이자 시장 역할을 하였다.
                                 </div>
                                 <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
-                                    <img src="폴리스의 구조.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <img src="${encodeURI('폴리스의 구조.jpg')}" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
                                 </div>
                             </div>
@@ -818,7 +811,7 @@
                                     아테네는 해상 교역을 바탕으로 상공업이 발달하였고 점진적으로 민주 정치가 꽃피었다. 반면 스파르타는 적은 수의 시민이 다수의 피지배층을 다스리기 위해 엄격하고 혹독한 군사 훈련을 강요하는 강력한 군사 통치(스파르타식 교육)를 실시하였다.
                                 </div>
                                 <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
-                                    <img src="아테네와 스파르타.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <img src="${encodeURI('아테네와 스파르타.jpg')}" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
                                 </div>
                             </div>
@@ -834,7 +827,7 @@
                                     아테네의 민주 정치는 솔론의 금권 정치, 클레이스테네스의 도편 추방제 실시를 거치며 기틀을 다졌다. 이후 기원전 5세기 페리클레스 시대에 이르러 모든 성인 남성 시민이 민회에 참여하여 국가의 중대사를 직접 결정하고, 관직과 배심원을 추첨으로 뽑는 직접 민주 정치가 완성되었다.
                                 </div>
                                 <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
-                                    <img src="도편.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <img src="${encodeURI('도편.jpg')}" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
                                 </div>
                             </div>
@@ -874,7 +867,7 @@
                                     알렉산드로스 대왕은 동방 원정으로 넓은 영토를 차지한 뒤 적극적인 동서 융합 정책을 추진하였다. 각지에 자신의 이름을 딴 도시 알렉산드리아를 세워 그리스 문화를 전파하였고, 페르시아인을 관리로 등용하거나 페르시아의 군주제를 수용하였다. 또한 그리스인과 페르시아인의 혼인을 장려하여 문화적 화합을 꾀하였다.
                                 </div>
                                 <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
-                                    <img src="알렉산드로스 대왕의 동서 융합 정책.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <img src="${encodeURI('알렉산드로스 대왕의 동서 융합 정책.jpg')}" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
                                 </div>
                             </div>
@@ -890,7 +883,7 @@
                                     알렉산드로스의 원정으로 그리스 문화와 동방의 고유문화가 융합된 헬레니즘 문화가 형성되었다. 대제국 안에서 폴리스의 좁은 틀을 벗어나 개인주의와 세계 시민주의가 발달하였다. 헬레니즘 문화의 사실적인 미술 양식은 인도의 간다라 미술에 영향을 주었고, 이는 훗날 중국과 우리나라, 일본 등 동아시아의 불교 미술에도 전해지며 폭넓은 동서 문화 교류를 이끌어 냈다.
                                 </div>
                                 <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
-                                    <img src="헬레니즘 문화의 형성과 동서 문화 교류.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <img src="${encodeURI('헬레니즘 문화의 형성과 동서 문화 교류.jpg')}" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
                                 </div>
                             </div>
@@ -939,7 +932,7 @@
                                     로마의 정치 체제는 왕정 → 공화정(귀족 중심에서 평민 참여 확대로 발전) → 제정(옥타비아누스가 사실상 황제의 권력을 누림)의 순서로 변화하였다.
                                 </div>
                                 <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
-                                    <img src="옥타비아누스.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <img src="${encodeURI('옥타비아누스.jpg')}" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
                                 </div>
                             </div>
@@ -955,7 +948,7 @@
                                     로마는 공화정 초기에 문서의 형식을 갖춘 성문법인 12표법을 만들었다. 12표법은 로마 시민에게만 적용하는 시민법이었는데, 시민법은 점차 로마 제국의 모든 민족에게 적용하는 만민법으로 확대되었다. 동로마 제국에서는 로마의 법률을 모아 『유스티니아누스 법전』을 만들었고, 이는 유럽 법률의 토대가 되었다.
                                 </div>
                                 <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
-                                    <img src="로마법의 변천.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <img src="${encodeURI('로마법의 변천.jpg')}" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
                                 </div>
                             </div>
@@ -973,7 +966,7 @@
             coreData: [
                 {
                     title: "크리스트교의 등장과 확산",
-                    content: "로마의 지배를 받던 서아시아의 팔레스타인 지역에서 예수는 민족과 신분에 상관없이 모두 평등하며, 누구나 사랑과 믿음으로 구원을 받을 수 있다고 가르쳤다. 예수의 제자들이 이러한 가르침을 전파하면서 크리스트교가 성립되었다. 크리스트교는 여성, 하층민, 노예 등 소외된 사람들을 중심으로 널리 퍼져 나갔다.\n\n크리스트교도들은 유일신을 숭배하고 황제 숭배를 거부하여 박해를 받았으나, 크리스트교를 믿는 사람들은 꾸준히 늘어났다. 이에 콘스탄티누스 대제는 제국의 안정을 위해 밀라노 칙령을 내려 크리스트교를 공인하였다(313). 4세기 말 로마 제국은 크리스트교를 국교로 인정하였고, 이후 크리스트교는 세계적인 종교로 성장하였다.",
+                    content: "로마의 지배를 받던 서아시아의 팔레스타인 지역에서 예수는 민족과 신분에 상관없이 모두 평등하며, 누구나 사랑과 믿음으로 구원을 받을 수 있다고 가르쳤다. 예수의 제자들이 이러한 가르침을 전파하면서 크리스트교가 성립되었다. 크리스트교는 여성, 하층민, 노예 등 소외된 사람들을 중심으로 널리 퍼져 나갔다.\n\n크리스트교도들은 유일신을 숭배하고 황제 숭배를 거부하여 박해를 받았으나, 크리스트교를 믿는 사람들은 꾸준히 늘어났다. 이에 콘스탄티누스 대제는 제국의 안정을 위해 밀라노 칙령을 내려 크리스트교를 공인하였다(313). 4 구원세기 말 로마 제국은 크리스트교를 국교로 인정하였고, 이후 크리스트교는 세계적인 종교로 성장하였다.",
                     image: "니케아 공의회.jpg" 
                 }
             ],
@@ -999,7 +992,8 @@
         const popup = document.getElementById('source-image-popup');
         const imgEl = document.getElementById('source-popup-img');
         if (imgEl && imageSrc) {
-            imgEl.src = imageSrc;
+            // 변경점: 원본 문자열을 받아서 표시할 때 인코딩 처리
+            imgEl.src = encodeURI(imageSrc);
             imgEl.style.display = 'block';
         }
         if (popup) {
@@ -1039,15 +1033,17 @@
         if (hasImage1 && hasImage2) {
             if (singleImageContainer) singleImageContainer.classList.add('hidden');
             
-            if (dualImageEl1) { dualImageEl1.src = imageSrc; dualImageEl1.style.display = 'block'; }
-            if (dualImageEl2) { dualImageEl2.src = imageSrc2; dualImageEl2.style.display = 'block'; }
+            // 변경점: 이미지를 불러올 때 인코딩 처리
+            if (dualImageEl1) { dualImageEl1.src = encodeURI(imageSrc); dualImageEl1.style.display = 'block'; }
+            if (dualImageEl2) { dualImageEl2.src = encodeURI(imageSrc2); dualImageEl2.style.display = 'block'; }
             
             if (dualImageContainer) { dualImageContainer.classList.remove('hidden'); dualImageContainer.classList.add('flex'); }
             if (popupPanel) popupPanel.classList.replace('max-w-2xl', 'max-w-5xl');
         } else if (hasImage1 && !hasImage2) {
             if (dualImageContainer) { dualImageContainer.classList.add('hidden'); dualImageContainer.classList.remove('flex'); }
             
-            if (singleImageEl) { singleImageEl.src = imageSrc; singleImageEl.style.display = 'block'; }
+            // 변경점: 이미지를 불러올 때 인코딩 처리
+            if (singleImageEl) { singleImageEl.src = encodeURI(imageSrc); singleImageEl.style.display = 'block'; }
             
             if (singleImageContainer) { singleImageContainer.classList.remove('hidden'); singleImageContainer.classList.add('flex'); }
             if (popupPanel) popupPanel.classList.replace('max-w-2xl', 'max-w-5xl');
@@ -1094,7 +1090,8 @@
         setSafeText('detail-title', civ.detailTitle);
         const detailImg = document.getElementById('detail-image');
         if (detailImg) {
-            detailImg.src = civImages[id] || '';
+            // 변경점: 아카이브 디테일 이미지를 불러올 때 인코딩 처리
+            detailImg.src = civImages[id] ? encodeURI(civImages[id]) : '';
             detailImg.style.display = detailImg.src ? 'block' : 'none';
         }
         setSafeHTML('detail-sections', `
@@ -1153,7 +1150,7 @@
                     </h4>
                     ${src.customBlock ? src.customBlock : ''}
                     ${src.image && !src.customBlock ? `<div class="relative w-full flex justify-center border border-animus-ai/20 bg-[#151e2e] overflow-hidden rounded-sm mb-5 group shadow-inner">
-                        <img src="${src.image}" class="max-w-full max-h-[300px] w-auto h-auto object-contain transition-transform duration-700 opacity-90 group-hover:scale-105" onerror="this.style.display='none'">
+                        <img src="${encodeURI(src.image)}" class="max-w-full max-h-[300px] w-auto h-auto object-contain transition-transform duration-700 opacity-90 group-hover:scale-105" onerror="this.style.display='none'">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0b111e]/80 via-transparent to-transparent pointer-events-none"></div>
                     </div>` : ''}
                     ${src.content ? `<p class="text-[15px] text-animus-text-light leading-relaxed break-keep opacity-90">${src.content}</p>` : ''}
