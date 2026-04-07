@@ -425,23 +425,6 @@
             </div>
         </div>
     </div>
-
-    <!-- 사료 탐구 이미지 팝업 (Animus 3.0 디자인 적용) -->
-    <div id="source-image-popup" class="fixed inset-0 z-[200] hidden items-center justify-center bg-[#0b111e]/80 backdrop-blur-sm" onclick="hideSourceImagePopup()">
-        <div class="odyssey-panel p-10 max-w-3xl w-full rounded-md shadow-2xl relative border border-animus-ai/50 mx-4" onclick="event.stopPropagation()">
-            <button class="absolute top-4 right-4 text-animus-text-dim hover:text-white transition-colors z-10" onclick="hideSourceImagePopup()">
-                <span class="material-symbols-outlined">close</span>
-            </button>
-            <h3 class="text-xl font-bold text-animus-ai mb-6 flex items-center gap-2 gold-glow">
-                <span class="material-symbols-outlined">image</span>
-                시각 데이터 스캔
-            </h3>
-            <div class="relative w-full flex justify-center border border-animus-ai/30 bg-[#0b111e]/90 overflow-hidden rounded-md mb-5 group">
-                <img id="source-popup-img" src="" class="max-w-full max-h-[60vh] w-auto h-auto object-scale-down transition-transform duration-700 opacity-90 group-hover:scale-105" onerror="this.style.display='none'">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#0b111e]/80 via-transparent to-transparent pointer-events-none"></div>
-            </div>
-        </div>
-    </div>
 </main>
 
 <script>
@@ -747,7 +730,7 @@
                                     <span class="block mt-2 text-right font-bold text-animus-ai">- 키루스 2세의 원통 내용</span>
                                 </div>
                                 <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
-                                    <img src="키루스 2세의 원통.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <img src="A5.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
                                 </div>
                             </div>
@@ -766,27 +749,27 @@
                 {
                     title: "폴리스의 형성",
                     content: "기원전 2000년경부터 에게해 주변에서는 이집트 문명과 메소포타미아 문명의 영향을 받아 에게 문명이 발달하였다. 기원전 1200년경 에게 문명이 몰락한 후, 남쪽으로 내려간 그리스인들은 지중해 가까운 곳에 모여 살기 시작하였다. 그리스는 산이 많고 평야가 적었기 때문에 그리스인들은 일찍부터 바다를 이용하여 생활에 필요한 것을 얻었다. 이들은 적의 침략을 막아 내기 좋은 곳에 요새나 성을 쌓고 생활하였는데, 이로부터 폴리스라는 작은 도시 국가들이 나타났다.\n\n기원전 8세기 무렵 그리스를 포함한 지중해 여러 지역에 폴리스가 발전하였다. 폴리스들은 정치적으로 독립되어 있었으나, 서로 같은 언어를 사용하고 같은 신들을 믿었으며, 주기적으로 올림피아 제전을 열어 유대감을 다졌다.",
-                    image: "고대 지중해의 주요 폴리스.jpg" 
+                    image: "B1.jpg" 
                 },
                 {
                     title: "스파르타",
                     content: "그리스의 폴리스 중 대표적인 곳은 스파르타와 아테네였다. 그중 정복 국가로 출발한 스파르타는 강력한 군사 통치를 실시하였다. 시민들은 어려서부터 엄격한 군사 훈련을 받았기 때문에 스파르타는 막강한 군사력을 확보할 수 있었다. 한편, 스파르타에서는 왕과 귀족이 정치를 맡았으나 나라의 중요한 일은 민회에서 정하였다.",
-                    image: "스파르타 전사 조각.jpg" 
+                    image: "B2.jpg" 
                 },
                 {
                     title: "아테네",
                     content: "그리스의 대표적인 폴리스인 아테네는 처음에는 왕정이었으나 점차 귀족들이 정치를 이끄는 귀족정으로 바뀌었다. 이러한 상황에서 무역과 상공업으로 부유해진 평민들이 스스로 무장하고 전쟁에 참여하면서 평민의 지위가 높아졌다.\n\n평민들의 정치 참여 요구가 높아진 아테네는 점차 민주정이 발전하였다. 기원전 6세기에 솔론은 재산을 가진 일부 평민이 정치에 참여할 수 있게 하였다. 클레이스테네스는 정치 참여 자격에서 재산 기준을 없앴으며, 투표로 독재자가 될 가능성이 높은 사람을 뽑아 일정 기간 쫓아내는 도편추방제를 실시하였다.\n\n기원전 5세기, 페리클레스가 권력을 잡았을 때 아테네의 민주정은 전성기를 맞았다. 시민들은 민회에 자유롭게 참여하여 폴리스의 중요한 문제를 논의하였다. 관직과 배심원은 대부분 추첨으로 뽑았고, 이들에게는 수당도 지급되었다. 그러나 아테네에서는 성인 남성만 정치에 참여할 수 있었고, 여성, 노예, 외국인은 정치에 참여할 수 없었다.",
-                    image: "아테나 여신상.jpg" 
+                    image: "B3.jpg" 
                 },
                 {
                     title: "그리스 세계의 발전과 쇠퇴",
                     content: "기원전 5세기, 서아시아 지역을 통일한 페르시아가 그리스를 침입하여 그리스·페르시아 전쟁이 일어났다. 그리스의 폴리스들은 아테네를 중심으로 마라톤 전투 등에서 승리하여 페르시아를 막아 냈다. 전쟁 이후 폴리스들은 델로스 동맹을 맺어 페르시아의 침입에 대비하였다.\n\n델로스 동맹의 대표였던 아테네는 지중해 무역을 독차지하고 세력을 넓히면서 주변의 폴리스들을 압박하였다. 그러자 스파르타를 중심으로 한 펠로폰네소스 동맹이 이에 반발하여 두 세력 간에 전쟁이 일어났다(펠로폰네소스 전쟁). 이 전쟁으로 스파르타가 승리하였으나, 오랜 전쟁으로 쇠퇴한 그리스 세계는 기원전 4세기 마케도니아에 정복되었다.",
-                    image: "그리스·페르시아 전쟁의 전개.jpg" 
+                    image: "B4.jpg" 
                 },
                 {
                     title: "문화",
                     content: "그리스인들은 인간 중심적이면서 합리적인 문화를 발전시켰다. 그리스 신화의 신들은 인간의 모습과 감정을 지닌 것으로 묘사되었는데, 이는 호메로스의 작품에 잘 나타나 있다. 아테네에서는 「오이디푸스왕」, 「안티고네」 등 인간관계나 사회 문제를 주제로 한 연극이 유행하였다. 파르테논 신전 등의 건축과 「원반 던지는 사람」 등의 조각에서는 조화와 균형을 강조한 그리스 양식을 엿볼 수 있다.\n\n그리스에서는 철학을 비롯한 학문이 크게 발달하였다. 철학은 자연에 대한 관심에서 시작되었는데, 기원전 5세기경 소피스트에 이르러 철학의 관심이 인간과 사회로 확대되었다. 철학자 집단인 소피스트는 진리의 상대성을 강조한 반면, 소크라테스는 인간의 삶에 객관적이고 절대적인 진리가 있다고 주장하여 소피스트를 비판하였다. 소크라테스의 철학은 플라톤과 아리스토텔레스에게 이어졌고, 이들의 사상은 서양 철학의 바탕이 되었다. 역사에서는 헤로도토스와 투키디데스가, 의학에서는 히포크라테스가, 수학에서는 피타고라스가 업적을 남겼다.",
-                    image: "원반 던지는 사람.jpg" 
+                    image: "B5.jpg" 
                 }
             ],
             wiki: '아테네의 수호신인 아테나 여신을 모신 신전으로, 조화와 균형을 강조한 고대 그리스 건축 양식의 특징을 가장 잘 보여주는 대표적인 문화유산이다.',
@@ -795,14 +778,14 @@
                 sources: [
                     {
                         title: "역사 탐구: 폴리스의 구조",
-                        image: "",
+                        image: "B6.jpg",
                         customBlock: `
                             <div class="flex flex-col gap-5 mb-5">
                                 <div class="w-full bg-[#151e2e] p-5 border-l-4 border-animus-ai text-animus-text-light font-kr text-[14px] leading-relaxed break-keep shadow-inner">
                                     그리스의 폴리스는 중심에 높은 언덕인 아크로폴리스가 있고, 그 아래에 평장인 아고라가 있는 구조였다. 아크로폴리스에는 신전을 세워 제사를 지내고 방어 요새로 삼았다. 아고라는 시민들이 모여 민회를 열거나 재판을 하고, 물건을 사고파는 공공의 장소이자 시장 역할을 하였다.
                                 </div>
                                 <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
-                                    <img src="폴리스의 구조.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <img src="B6.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
                                 </div>
                             </div>
@@ -811,14 +794,14 @@
                     },
                     {
                         title: "역사 탐구: 아테네와 스파르타",
-                        image: "",
+                        image: "B7.jpg",
                         customBlock: `
                             <div class="flex flex-col gap-5 mb-5">
                                 <div class="w-full bg-[#151e2e] p-5 border-l-4 border-animus-ai text-animus-text-light font-kr text-[14px] leading-relaxed break-keep shadow-inner">
                                     아테네는 해상 교역을 바탕으로 상공업이 발달하였고 점진적으로 민주 정치가 꽃피었다. 반면 스파르타는 적은 수의 시민이 다수의 피지배층을 다스리기 위해 엄격하고 혹독한 군사 훈련을 강요하는 강력한 군사 통치(스파르타식 교육)를 실시하였다.
                                 </div>
                                 <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
-                                    <img src="아테네와 스파르타.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <img src="B7.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
                                 </div>
                             </div>
@@ -827,14 +810,14 @@
                     },
                     {
                         title: "역사 탐구: 아테네 민주 정치의 발전",
-                        image: "",
+                        image: "B8.jpg",
                         customBlock: `
                             <div class="flex flex-col gap-5 mb-5">
                                 <div class="w-full bg-[#151e2e] p-5 border-l-4 border-animus-ai text-animus-text-light font-kr text-[14px] leading-relaxed break-keep shadow-inner">
                                     아테네의 민주 정치는 솔론의 금권 정치, 클레이스테네스의 도편 추방제 실시를 거치며 기틀을 다졌다. 이후 기원전 5세기 페리클레스 시대에 이르러 모든 성인 남성 시민이 민회에 참여하여 국가의 중대사를 직접 결정하고, 관직과 배심원을 추첨으로 뽑는 직접 민주 정치가 완성되었다.
                                 </div>
                                 <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
-                                    <img src="도편.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <img src="B8.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
                                 </div>
                             </div>
@@ -853,12 +836,12 @@
                 {
                     title: "동방 원정과 융합 정책",
                     content: "그리스 북쪽에 위치한 마케도니아는 펠로폰네소스 전쟁으로 약해진 그리스를 정복하였다. 이후 마케도니아의 왕 알렉산드로스는 동방 원정에 나서 제국을 만들었다. 그는 각지에 알렉산드리아라는 도시를 세워 그리스인을 이주시키고, 그리스 문화를 여러 지역에 전파하였다. 또한 정복지 출신의 사람을 관리로 뽑는 등 동서 융합을 꾀하였다. 그러나 알렉산드로스가 죽은 후 제국은 분열되었고, 이후 로마에 정복되었다.",
-                    image: "알렉산드로스 대왕의 동방 원정.jpg" 
+                    image: "C1.jpg" 
                 },
                 {
                     title: "헬레니즘 문화",
                     content: "한편, 알렉산드로스의 동방 원정 과정에서 그리스 문화와 동방 문화가 융합한 헬레니즘 문화가 발전하였다. 대제국이 세워지자 폴리스 중심의 공동체 의식이 줄어들고 개인의 행복을 추구하는 개인주의가 등장하였다. 이와 함께 제국 아래 모두가 같은 시민이라는 세계 시민주의가 발달하였다.\n\n이 시기에는 그리스 학문의 영향으로 수학, 과학 등이 크게 발전하였다. 물리학에서는 아르키메데스, 기하학에서는 에우클레이데스(유클리드)가 활약하였으며, 미술에서는 「라오콘 군상」 등의 조각이 만들어졌다.",
-                    image: "라오콘 군상.jpg" 
+                    image: "C2.jpg" 
                 }
             ],
             wiki: '마케도니아의 왕으로, 이집트와 페르시아를 정복하고 인더스강 유역에 이르는 광대한 대제국을 건설하였다. 뛰어난 군사적 지도력으로 동방 원정을 이끌었으며, 그의 정복 활동을 통해 그리스 문화와 동방 문화가 융합된 헬레니즘 문화가 형성되는 계기를 마련하였다.',
@@ -867,14 +850,14 @@
                 sources: [
                     {
                         title: "역사 탐구: 알렉산드로스 대왕의 동서 융합 정책",
-                        image: "",
+                        image: "C3.jpg",
                         customBlock: `
                             <div class="flex flex-col gap-5 mb-5">
                                 <div class="w-full bg-[#151e2e] p-5 border-l-4 border-animus-ai text-animus-text-light font-kr text-[14px] leading-relaxed break-keep shadow-inner">
                                     알렉산드로스 대왕은 동방 원정으로 넓은 영토를 차지한 뒤 적극적인 동서 융합 정책을 추진하였다. 각지에 자신의 이름을 딴 도시 알렉산드리아를 세워 그리스 문화를 전파하였고, 페르시아인을 관리로 등용하거나 페르시아의 군주제를 수용하였다. 또한 그리스인과 페르시아인의 혼인을 장려하여 문화적 화합을 꾀하였다.
                                 </div>
                                 <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
-                                    <img src="알렉산드로스 대왕의 동서 융합 정책.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <img src="C3.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
                                 </div>
                             </div>
@@ -883,14 +866,14 @@
                     },
                     {
                         title: "역사 탐구: 헬레니즘 문화의 형성과 동서 문화 교류",
-                        image: "",
+                        image: "C4.jpg",
                         customBlock: `
                             <div class="flex flex-col gap-5 mb-5">
                                 <div class="w-full bg-[#151e2e] p-5 border-l-4 border-animus-ai text-animus-text-light font-kr text-[14px] leading-relaxed break-keep shadow-inner">
                                     알렉산드로스의 원정으로 그리스 문화와 동방의 고유문화가 융합된 헬레니즘 문화가 형성되었다. 대제국 안에서 폴리스의 좁은 틀을 벗어나 개인주의와 세계 시민주의가 발달하였다. 헬레니즘 문화의 사실적인 미술 양식은 인도의 간다라 미술에 영향을 주었고, 이는 훗날 중국과 우리나라, 일본 등 동아시아의 불교 미술에도 전해지며 폭넓은 동서 문화 교류를 이끌어 냈다.
                                 </div>
                                 <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
-                                    <img src="헬레니즘 문화의 형성과 동서 문화 교류.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <img src="C4.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
                                 </div>
                             </div>
@@ -909,22 +892,21 @@
                 {
                     title: "공화정의 성립과 발전",
                     content: "기원전 8세기 무렵 로마는 이탈리아반도에서 작은 도시 국가로 출발하였다. 처음에는 왕정이었으나 기원전 6세기 말에 귀족들이 왕을 몰아내고 공화정을 세웠다. 공화정 초기에는 귀족들이 원로원 을 중심으로 집정관 등 주요 관직을 독차지하였다. 그러나 평민들이 정복 전쟁에 참여하면서 점차 세력을 키웠고, 이를 바탕으로 귀족에 대항하여 평민의 정치 참여를 요구하였다. 그 결과 평민들은 호민관 을 뽑고 평민회를 세울 수 있었다.",
-                    image: "공화정의 설립과 발전.jpg" 
                 },
                 {
                     title: "공화정의 위기",
                     content: "기원전 3세기에 이탈리아반도를 통일한 로마는 카르타고와 지중해 해상권을 놓고 세 차례 전쟁을 벌였다(로마-카르타고 전쟁). 전쟁에서 승리한 로마는 이후 동쪽으로 정복 전쟁을 계속하여 지중해 세계를 지배하였다.\n\n전쟁을 거치면서 로마의 귀족들은 토지를 많이 차지하여 노예를 이용한 대농장(라티푼디움)을 경영하였다. 반면 자영 농민들은 토지를 잃고 몰락하면서 로마 공화정에 위기가 찾아왔다. 호민관으로 뽑힌 그라쿠스 형제 는 자영 농민 등을 위한 개혁을 실시하였지만 귀족들의 반대로 실패하였다.\n\n이후 로마는 군인 정치가들이 권력 다툼을 벌이면서 혼란을 겪었다. 기원전 1세기에는 카이사르가 강력한 군사력을 내세워 정권을 잡았으나 독재에 반대한 세력에게 암살당하였다.",
-                    image: "그라쿠스 형제.jpg" 
+                    image: "D1.jpg" 
                 },
                 {
                     title: "제국의 발전과 쇠퇴",
                     content: "카이사르의 뒤를 이은 옥타비아누스는 로마의 정치적 혼란을 안정시키고 행정권, 군사권 등의 권력을 차지하였다. 이에 원로원은 그에게 ‘아우구스투스(존엄한 자)’라는 칭호를 주었고, 옥타비아누스는 황제나 다름없는 권력을 누렸다. 이때부터는 로마의 공화정이 끝나고 황제가 다스리는 제정이 시작되었다(기원전 27).\n\n옥타비아누스 이후 로마는 약 200년 동안 로마의 평화라고 불리는 번영을 누렸다. 그러나 2세기 말부터 게르만족 등이 침입하여 쇠퇴하기 시작하였다. 3세기 말에는 디오클레티아누스가 제국을 4분할한 뒤 네 명의 통치자가 공동으로 다스리게 하였다. 4세기 초에는 콘스탄티누스 대제가 수도를 콘스탄티노폴리스로 옮기는 등 제국을 다시 일으켜 세우고자 하였다. 이러한 노력에도 로마는 4세기 말 동서로 분리되었다. 동로마 제국(비잔티움 제국)은 이후 1000여 전 동안 지속되었으나, 서로마 제국은 게르만족의 침입으로 멸망하였다(476).",
-                    image: "로마의 영역.jpg" 
+                    image: "D2.jpg" 
                 },
                 {
                     title: "로마의 문화",
                     content: "로마에서는 넓은 제국을 다스리는 데 도움이 되는 실용적인 문화가 발달하였다. 로마는 공화정 초기에 문서의 형식을 갖춘 성문법 인 12표법을 만들었다. 12표법은 로마 시민에게만 적용하는 시민법이었는데, 시민법은 점차 로마 제국의 모든 민족에게 적용하는 만민법으로 확대되었다. 동로마 제국에서는 로마의 법률을 모아 『유스티니아누스 법전』 을 만들었고, 이는 유럽 법률의 토대가 되었다.\n\n로마에서는 법률과 함께 건축도 발달하였다. 로마인들은 콘크리트를 건축 재료로 이용하였으며, 아치와 돔의 원리를 활용하여 거대한 건물을 지었다. 사람과 물자의 이동을 원활하게 하고자 도시들을 연결하는 도로망을 건설하였으며, 도시에 물을 공급하고 하수를 내보내는 상하수도 시설도 만들었다. 도시에는 공중목욕탕, 공중화장실, 원형 경기장, 신전 등 시민들을 위한 건물이 있었다.",
-                    image: "수도교.jpg" 
+                    image: "D3.jpg" 
                 }
             ],
             wiki: '고대 로마의 정치, 종교, 경제 중심지 역할을 했던 공공 광장이다. 신전, 공회당, 원로원 회의장 등 다양한 건축물이 모여 있어 당시 로마 시민들의 활발한 공공 생활 모습을 잘 보여준다.',
@@ -933,14 +915,14 @@
                 sources: [
                     {
                         title: "역사 탐구: 로마의 통치 체제 변화",
-                        image: "",
+                        image: "D4.jpg",
                         customBlock: `
                             <div class="flex flex-col gap-5 mb-5">
                                 <div class="w-full bg-[#151e2e] p-5 border-l-4 border-animus-ai text-animus-text-light font-kr text-[14px] leading-relaxed break-keep shadow-inner">
                                     로마의 정치 체제는 왕정 → 공화정(귀족 중심에서 평민 참여 확대로 발전) → 제정(옥타비아누스가 사실상 황제의 권력을 누림)의 순서로 변화하였다.
                                 </div>
                                 <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
-                                    <img src="옥타비아누스.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <img src="D4.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
                                 </div>
                             </div>
@@ -949,14 +931,14 @@
                     },
                     {
                         title: "역사 탐구: 로마법의 발달 과정",
-                        image: "",
+                        image: "D5.jpg",
                         customBlock: `
                             <div class="flex flex-col gap-5 mb-5">
                                 <div class="w-full bg-[#151e2e] p-5 border-l-4 border-animus-ai text-animus-text-light font-kr text-[14px] leading-relaxed break-keep shadow-inner">
                                     로마는 공화정 초기에 문서의 형식을 갖춘 성문법인 12표법을 만들었다. 12표법은 로마 시민에게만 적용하는 시민법이었는데, 시민법은 점차 로마 제국의 모든 민족에게 적용하는 만민법으로 확대되었다. 동로마 제국에서는 로마의 법률을 모아 『유스티니아누스 법전』을 만들었고, 이는 유럽 법률의 토대가 되었다.
                                 </div>
                                 <div class="relative w-full flex justify-center border border-white/30 bg-black/40 overflow-hidden shard group">
-                                    <img src="로마법의 변천.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
+                                    <img src="D5.jpg" class="w-auto h-auto max-w-full max-h-[500px] object-contain transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105" onerror="this.style.display='none'">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
                                 </div>
                             </div>
@@ -975,7 +957,7 @@
                 {
                     title: "크리스트교의 등장과 확산",
                     content: "로마의 지배를 받던 서아시아의 팔레스타인 지역에서 예수는 민족과 신분에 상관없이 모두 평등하며, 누구나 사랑과 믿음으로 구원을 받을 수 있다고 가르쳤다. 예수의 제자들이 이러한 가르침을 전파하면서 크리스트교가 성립되었다. 크리스트교는 여성, 하층민, 노예 등 소외된 사람들을 중심으로 널리 퍼져 나갔다.\n\n크리스트교도들은 유일신을 숭배하고 황제 숭배를 거부하여 박해를 받았으나, 크리스트교를 믿는 사람들은 꾸준히 늘어났다. 이에 콘스탄티누스 대제는 제국의 안정을 위해 밀라노 칙령을 내려 크리스트교를 공인하였다(313). 4세기 말 로마 제국은 크리스트교를 국교로 인정하였고, 이후 크리스트교는 세계적인 종교로 성장하였다.",
-                    image: "니케아 공의회.jpg" 
+                    image: "E1.jpg" 
                 }
             ],
             wiki: '크리스트교도들은 유일신을 숭배하고 황제 숭배를 거부한다는 이유로 로마 제국으로부터 심한 박해를 받았다. 이들은 박해를 피해 지하 묘지인 카타콤에 숨어 예배를 드리며 신앙을 지켜나갔다.',
@@ -994,29 +976,6 @@
         { year: '기원전 27년', title: '로마 제정 성립', desc: '옥타비아누스가 권력을 잡아 아우구스투스 칭호를 받으며 사실상의 제정이 시작되었다.', region: 'ROME' },
         { year: '313년', title: '크리스트교 공인', desc: '콘스탄티누스 대제가 제국의 안정을 위해 밀라노 칙령을 내려 크리스트교를 정식 공인하였다.', region: 'ROME' }
     ];
-
-    function showSourceImagePopup(imageSrc) {
-        playUIBeep();
-        const popup = document.getElementById('source-image-popup');
-        const imgEl = document.getElementById('source-popup-img');
-        if (imgEl && imageSrc) {
-            imgEl.src = imageSrc;
-            imgEl.style.display = 'block';
-        }
-        if (popup) {
-            popup.classList.remove('hidden');
-            popup.classList.add('flex');
-        }
-    }
-
-    function hideSourceImagePopup() {
-        playUIBeep();
-        const popup = document.getElementById('source-image-popup');
-        if (popup) {
-            popup.classList.add('hidden');
-            popup.classList.remove('flex');
-        }
-    }
 
     function showOriginPopup(content, imageSrc, imageSrc2) {
         playUIBeep();
@@ -1150,7 +1109,6 @@
                     <h4 class="text-animus-ai text-lg font-kr font-bold mb-5 flex items-center gap-3 border-b border-animus-ai/20 pb-2">
                         <span class="material-symbols-outlined text-2xl">account_balance</span> 
                         <span>${src.title}</span>
-                        ${(src.popupImage || src.image) ? `<span class="material-symbols-outlined text-animus-text-dim hover:text-animus-ai cursor-pointer transition-transform hover:scale-110 ml-auto" onclick="showSourceImagePopup('${src.popupImage || src.image}')" title="이미지 스캔">image</span>` : ''}
                     </h4>
                     ${src.customBlock ? src.customBlock : ''}
                     ${src.image && !src.customBlock ? `<div class="relative w-full flex justify-center border border-animus-ai/20 bg-[#151e2e] overflow-hidden rounded-sm mb-5 group shadow-inner">
